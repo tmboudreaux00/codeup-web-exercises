@@ -1,0 +1,6 @@
+#Add ignore files. Folders cannot be ignored, but folders contents can, e.g. .idea/*
+
+
+.idea/*
+*.iml
+.DS_STORE
