@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register With Us</title>
+</head>
+<body>
+    <header>
+    <h2>Account Registration and User Information:</h2>
+    </header>
+        <form method="POST" action="https://request-inspector.glitch.me/" accept-charset="UTF-8">
+            <h3>Please complete the following information:</h3>
+        <section id="userdata">
+            <label for="email">Email Address</label>
+            <br>
+            <input type="email" name="email" id="email" placeholder="email@example.com">
+            <br>
+            <label for="password">Password</label>
+            <br>
+            <input type="password" name="password" id="password">
+            <br>
+            <label for="bio">Please tell us about yourself!</label>
+            <br>
+            <textarea name="bio" id="bio" cols="20" rows="10" placeholder="I design propulsion systems for extra-planetary exploration and colonization."></textarea>
+    </section>
+
+
+    <section id="questionnaire">
+        <h2>Please answer the following survey questions:</h2>
+        <h3>How did you hear about us?</h3>
+
+        <input type="radio" name="ad_question" value="billboard" id="billboard">
+        <label for="billboard">Billboard</label>
+        <input type="radio" name="ad_question" value="internet" id="internet">
+        <label for="internet">Internet Advertisement</label>
+        <input type="radio" name="ad_question" value="radio" id="radio">
+        <label for="radio">Radio Advertisement</label>
+        <input type="radio" name="ad_question" value="other" id="other">
+        <label for="other">Other</label>
+
+        <h3>Which web browser do you prefer?</h3>
+        <select name="browser_preference" id="browser_pref">
+        <option value="Chrome">Chrome</option>
+        <option value="edge">Edge</option>
+        <option value="firefox">Firefox</option>
+        <option value="safari">Safari</option>
+        <option value="other">Other</option>
+        </select>
+    </section>
+        <br>
+        <input type="hidden" id="regId" name="regId" value="123">
+        <button type="submit">Sign Up Now!</button>
+    </form>
+</body>
+</html>
+
