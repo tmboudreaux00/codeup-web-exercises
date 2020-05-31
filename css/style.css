@@ -1,5 +1,63 @@
 /* for welcome.html */
 
-.fancy-header {
-    color: purple;
+body {
+    background-color: #fcba03;
+    background-image: url(../img/background-img.jpg);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: /* contain */ cover;
+    font-family: 'Rubik', sans-serif;
 }
+
+header {
+    text-align: center;
+    text-decoration: underline;
+    color: #ff0000;
+}
+
+ul {
+ list-style-type: square;
+}
+
+#section-table>h2 {
+    width: 75%;
+    margin: auto;
+    text-align: center;
+    font-size: 2em;
+    padding: 15px;
+
+}
+#section-table table, td, th {
+    width: 75%;
+    margin: auto;
+    text-align: left;
+    border-collapse: collapse;
+    font-size: 1.2em;
+    border: 1px solid black;
+    padding: 10px;
+
+}
+#section-table th {
+     text-align: center;
+ }
+#section-table>p {
+    width: 75%;
+    margin: auto;
+}
+
+a:link {
+    color:red;
+}
+
+a:visited {
+    color:purple;
+}
+
+a:hover {
+    color: blue;
+}
+
+a:active {
+    color: green;
+}
+/*  */
