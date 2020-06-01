@@ -9,40 +9,82 @@ body {
     font-family: 'Rubik', sans-serif;
 }
 
+body hr {
+    border: 1px dashed #ff0000;
+}
+
 header {
     text-align: center;
     text-decoration: underline;
     color: #ff0000;
 }
 
-ul {
- list-style-type: square;
+
+
+ol, ul {
+    text-align: center;
+    list-style: inside;
+    width: 75%;
+    margin: auto;
+    font-size: 1.5em;
 }
 
-#section-table>h2 {
+ul {
+    list-style-type: square;
+}
+
+section h2 {
     width: 75%;
     margin: auto;
     text-align: center;
     font-size: 2em;
     padding: 15px;
-
 }
+
+#section-vision img {
+    border: .5px solid white;
+    display: block;
+    margin: auto;
+}
+
 #section-table table, td, th {
+
     width: 75%;
     margin: auto;
     text-align: left;
     border-collapse: collapse;
     font-size: 1.2em;
-    border: 1px solid black;
-    padding: 10px;
-
+    border: 2px solid black;
 }
+
 #section-table th {
      text-align: center;
  }
+
 #section-table>p {
     width: 75%;
     margin: auto;
+}
+
+.column-two {
+    padding-top: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 5px;
+}
+
+.column-three {
+    column-width: auto;
+    padding-top: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 5px;
+}
+
+footer {
+    width: 50%;
+    margin: 50px;
+    padding: 15px;
 }
 
 a:link {
