@@ -22,7 +22,7 @@ fieldset {
     -moz-box-shadow: 10px 10px 5px 0 rgba(0,0,0,0.75);
     box-shadow: 10px 10px 5px 0 rgba(0,0,0,0.75);
     padding: 1em;
-    border: 0px;
+    border: 0;
     background-color: white;
     /* There must be 1em between the content and the border of this element */
     /* It should have no border */
@@ -31,7 +31,7 @@ fieldset {
 
 .width-80 {
     width: 80%;
-    margin: auto;
+    margin: 0 auto;
 
     /* The element with this class should 80% of the width and it must be centered */
     /* Read how to center elements with margin here: http://learnlayout.com/margin-auto.html*/
@@ -62,6 +62,7 @@ fieldset {
     /* There must be a separation of 8px between the text and the border of this element */
     /* The text color of this element should be white and bold */
     /* The border of this element should be 1px, and its color should be light grey */
+    border: 1px lightgray solid;
     background-color: #0fb784;
 }
 

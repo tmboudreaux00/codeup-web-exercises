@@ -1,9 +1,9 @@
 /* For messages.html prework */
 :root {
-    --info-bg-color: rgba(30,144,255,0.4);
+    --info-bg-color: rgba(30,144,255,0.3);
     --success-bg-color: rgba(50,205,50,0.4);
     --warning-bg-color: rgba(255,255,0,0.3);
-    --error-bg-color: rgba(255,0,0,0.4);
+    --error-bg-color: rgba(255,0,0,0.3);
 }
 body, html {
     height: 100%;
@@ -12,43 +12,32 @@ body, html {
     margin: 0;
     font-family: Arial, Ubuntu, sans-serif;
 }
-
-.message-info {
-    color: blue;
-    background-color: var(--info-bg-color);
+.message {
     width: 90%;
     padding: 1em;
     margin: .5em;
     border: 1px lightgray solid;
     border-radius: 5px;
+}
+.message-info {
+    color: blue;
+    background-color: var(--info-bg-color);
+
+
 }
 
 .message-success {
     color: green;
     background-color: var(--success-bg-color);
-    width: 90%;
-    padding: 1em;
-    margin: .5em;
-    border: 1px lightgray solid;
-    border-radius: 5px;
+
 }
 
 .message-warning {
     color: darkgoldenrod;
     background-color: var(--warning-bg-color);
-    width: 90%;
-    padding: 1em;
-    margin: .5em;
-    border: 1px lightgray solid;
-    border-radius: 5px;
 }
 
 .message-error {
     color: darkred;
     background-color: var(--error-bg-color);
-    width: 90%;
-    padding: 1em;
-    margin: .5em;
-    border: 1px lightgray solid;
-    border-radius: 5px;
 }
