@@ -1,6 +1,9 @@
 #Add ignore files. Folders cannot be ignored, but folders contents can, e.g. .idea/*
 
 localtest*.html
+flexercise.html
+css/flexercise.css
+
 .idea/*
 *.iml
 .DS_STORE

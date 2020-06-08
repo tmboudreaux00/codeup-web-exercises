@@ -1,0 +1,175 @@
+/* For flexbox-nav-exercise.html */
+
+/* box-sizing: border-box for all elements */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    margin: 0;
+}
+
+
+/* link text, the logo, and icons are surrounded by anchor tags; links turn blue on hover; anchor tags
+are display: inline-block; clickable area of links immediately flow from one link to the next (padding will
+help achieve this) default styling is removed as needed from the body, unordered list and anchor tag elements
+*/
+
+a {
+    text-decoration: none;
+    display: inline-block;
+}
+
+a:link {
+    color: black;
+}
+
+a:visited {
+    color: black;
+}
+a:hover {
+    color: blue;
+}
+
+/* no explicit height given to the navbar; */
+.top-nav-bar {
+    background-color: #c1c1c1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-bar-left {
+    width: 25%;
+}
+
+/* Google Fonts used for logo and link text ("Montserrat" and "Work Sans", respectively)*/
+
+.nav-list-left {
+    width: 100%;
+    list-style: none;
+    font-size: 1vw;
+    display: flex;
+
+    margin: 0;
+    padding: 0;
+    font-family: "Work Sans", sans-serif;
+}
+
+.left-list-item {
+    width: 25%;
+    padding: .2em;
+    text-align: center;
+}
+
+.logo:hover {
+    border: 1px solid gray;
+    border-radius: 5px;
+    box-shadow: 2px 4px #888888;
+    text-shadow: 2px 4px #888888;
+}
+
+/* logo is absolutely positioned to completely center text on the navbar */
+.logo-top {
+    width: 50%;
+    position: center;
+    font-family: "Montserrat", sans-serif;
+}
+
+/*  the "Logo" text is 3em with .2em of padding above and below */
+.logo-top>p {
+    font-size: 3em;
+    padding-top: 0.2em;
+    padding-bottom: 0.2em;
+    text-align: center;
+    margin: 0;
+}
+
+.nav-bar-right {
+    width: 25%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: "Work Sans", sans-serif;
+}
+
+.icon-wrapper {
+    font-size: 1vw;
+    padding: .2em;
+    margin: 0;
+}
+
+.icon-wrapper:nth-of-type(1) {
+    width: 40%;
+}
+
+.icon-wrapper:nth-of-type(n+2):nth-of-type(-n+4) {
+    text-align: center;
+    width: 20%;
+}
+
+.follow-us {
+    text-align: center;
+    margin: 0;
+}
+
+.main-content {
+    margin: 0 auto;
+    text-align: center;
+    border: 6px dotted black;
+}
+
+.bottom-nav-bar {
+    width: 100%;
+    background-color: #c1c1c1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid black; /* delete */
+}
+
+.footer-contact {
+    background-color: #333333;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    border: 1px solid black; /* delete */
+}
+
+.contact-container {
+    width: 50%;
+    padding: 1em;
+    display: flex;
+    justify-content: space-between;
+    border: 1px black solid;
+}
+
+.footer-phone {
+    color: #fbfbfb;
+    align-self: center;
+    padding: 0 1em;
+    margin: 0;
+    border: 1px solid #fbfbfb; /* delete */
+}
+
+.footer-email {
+    border: 1px solid black; /* delete */
+}
+
+.btn {
+}
+
+.bottom-nav-list {
+    width: 90%;
+    list-style: none;
+    padding: 0;
+    display: flex;
+    border: 1px solid black; /* delete */
+}
+
+.bottom-nav-list>a {
+    border: 1px solid black; /* delete */
+}
