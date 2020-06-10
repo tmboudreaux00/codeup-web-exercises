@@ -41,12 +41,50 @@
         </div>
     </nav>
 
-    <div class="container mt-0 pt-0 d-none d-md-block">
-        <div class="jumbotron jumbotron-fluid text-center d-none d-md-block">
+    <div class="container-fluid m-0 p-0">
+        <div class="jumbotron jumbotron-fluid container-fluid d-none d-md-block">
             <img src="img/jumbotron.png" class="img-fluid" alt="pizza world image">
             <h1>Welcome to Pizza World!</h1>
         </div>
-
+        <h2 class="build-pizza">Build your own pizza!</h2>
+        <ul class="nav nav-tabs ml-2">
+            <li class="nav-item">
+                <a class="nav-link active" href="#"><span class="badge badge-dark">1</span>Size and Crust</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#"><span class="badge badge-dark">2</span>Cheese and Sauce</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#"><span class="badge badge-dark">3</span>Toppings</a>
+            </li>
+        </ul>
+        <h2>Choose size and crust</h2>
+        <div class="card" style="width: 18rem;">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"><div class="form-check">
+                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
+                    <label class="form-check-label" for="exampleRadios1">
+                        Default radio
+                    </label>
+                </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
+                        <label class="form-check-label" for="exampleRadios2">
+                            Second default radio
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="option3" disabled>
+                        <label class="form-check-label" for="exampleRadios3">
+                            Disabled radio
+                        </label>
+                    </div></li>
+                <li class="list-group-item">Dapibus ac facilisis in</li>
+                <li class="list-group-item">Vestibulum at eros</li>
+            </ul>
+        </div>
+        <h2>Choose cheese and sauce</h2>
+        <h2>Chuse toppings</h2>
 
     </div>
 
@@ -54,14 +92,14 @@
 
 
 <!-- Required for Bootstrap -->
-<useless>
+<bootstrap>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
         integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
         integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
-</useless>
+</bootstrap>
 
 </body>
 </html>
