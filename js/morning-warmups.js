@@ -1,5 +1,13 @@
 // For morning-warmups.html
 
+function returnTypeOf (input) {
+    return typeof input;
+}
+console.log (returnTypeOf("hello"));
+console.log (returnTypeOf(123));
+console.log (returnTypeOf(12===12))
+
+
 function returnArguments(arg) {
     return arg;
 }
