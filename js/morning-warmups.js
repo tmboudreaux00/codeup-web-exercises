@@ -1,4 +1,13 @@
 // For morning-warmups.html
+function printEvens() {
+    for (var i = 1; i < 21; i++) {
+        if (i % 2 == 0) {
+            console.log(i);
+        }
+    }
+}
+printEvens();
+
 
 function isEven(num) {
     if (num%2 === 0)
