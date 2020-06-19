@@ -171,7 +171,7 @@ let numberPicker = function () {
     let pickNumberConfirm = confirm("Would you like to enter a number?");
 
     if (pickNumberConfirm === true) {
-        var pickNumber = prompt("Please enter a number.");
+        var pickNumber = parseInt(prompt("Please enter a number."));
 
         //Confirms if entry is a number
         if (isNaN(pickNumber) === true) {
@@ -198,7 +198,7 @@ let numberPicker = function () {
                 }
             }
             //Adds number with 100
-            alert("Your number plus 100 equals " + (parseInt(pickNumber) + 100))
+            alert("Your number plus 100 equals " + (pickNumber + 100))
         }
     } else {
         alert("Please refresh the page and pick a number")
