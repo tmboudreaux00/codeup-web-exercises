@@ -178,7 +178,7 @@ let numberPicker = function () {
             alert("Please refresh the page and enter a valid number.")
         } else {
             //Confirms if number is 0
-            if (parseInt(pickNumber) === 0) {
+            if (pickNumber === 0) {
                 alert("Your number is neither odd nor even because it holds no value.");
                 alert("Your number is neither positive nor negative because it holds no value.")
             } else {
