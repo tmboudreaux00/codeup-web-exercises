@@ -1,4 +1,18 @@
 // For morning-warmups.html
+
+let countBy = function(x, y) {
+    console.log(x);
+    x += y;
+    console.log(x);
+    x += y;
+    console.log(x);
+    x += y;
+    console.log(x);
+    x += y;
+    console.log(x);
+}
+countBy(10, 5);
+
 function printEvens() {
     for (var i = 1; i < 21; i++) {
         if (i % 2 == 0) {
