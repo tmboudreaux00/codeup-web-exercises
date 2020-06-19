@@ -167,10 +167,12 @@ switch (luckyNumber) {
  */
 
 let numberPicker = function () {
+
     let pickNumberConfirm = confirm("Would you like to enter a number?");
 
     if (pickNumberConfirm === true) {
         var pickNumber = prompt("Please enter a number.");
+
         //Confirms if entry is a number
         if (isNaN(pickNumber) === true) {
             alert("Please refresh the page and enter a valid number.")
