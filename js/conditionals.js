@@ -166,38 +166,40 @@ switch (luckyNumber) {
  * HINT: The way we prompt for a value could be improved
  */
 
+let numberPicker = function () {
+    let pickNumberConfirm = confirm("Would you like to enter a number?");
 
-let pickNumberConfirm = confirm("Would you like to enter a number?");
-
-if (pickNumberConfirm === true) {
-    var pickNumber = prompt("Please enter a number.");
-    //Confirms if entry is a number
-    if (isNaN(pickNumber) === true) {
-        alert("Please refresh the page and enter a valid number.")
-    } else {
-        //Confirms if number is 0
-        if (parseInt(pickNumber) === 0) {
-            alert("Your number is neither odd nor even because it holds no value.");
-            alert("Your number is neither positive nor negative because it holds no value.")
+    if (pickNumberConfirm === true) {
+        var pickNumber = prompt("Please enter a number.");
+        //Confirms if entry is a number
+        if (isNaN(pickNumber) === true) {
+            alert("Please refresh the page and enter a valid number.")
         } else {
-
-            //Confirms if number is odd/even
-            if (pickNumber % 2 === 0) {
-                alert("Your number is even!")
+            //Confirms if number is 0
+            if (parseInt(pickNumber) === 0) {
+                alert("Your number is neither odd nor even because it holds no value.");
+                alert("Your number is neither positive nor negative because it holds no value.")
             } else {
-                alert("Your number is odd!");
-            }
 
-            //Confirms if number is pos/neg
-            if (pickNumber > 0) {
-                alert("Your number is positive!")
-            } else {
-                alert("Your number is negative!")
+                //Confirms if number is odd/even
+                if (pickNumber % 2 === 0) {
+                    alert("Your number is even!")
+                } else {
+                    alert("Your number is odd!");
+                }
+
+                //Confirms if number is pos/neg
+                if (pickNumber > 0) {
+                    alert("Your number is positive!")
+                } else {
+                    alert("Your number is negative!")
+                }
             }
-        }
             //Adds number with 100
             alert("Your number plus 100 equals " + (parseInt(pickNumber) + 100))
         }
     } else {
-    alert("Please refresh the page and pick a number")
+        alert("Please refresh the page and pick a number")
+    }
 }
+numberPicker();
