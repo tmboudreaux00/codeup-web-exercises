@@ -1,5 +1,29 @@
 // For morning-warmups.html
 
+let numbers = [1, 2, 3, 4, 5, 6, 7, 8];
+let randomNumber = numbers[Math.floor(Math.random() * numbers.length)];
+
+let magic8Ball = function(randomInt){
+    if (randomInt === 1) {
+        return "As I see it, yes";
+    } else if (randomInt === 2) {
+        return "2";
+    } else if (randomInt === 3) {
+        return "3";
+    } else if (randomInt === 4) {
+        return "4";
+    } else if (randomInt === 5) {
+        return "5";
+    } else if (randomInt === 6) {
+        return "6";
+    } else if (randomInt === 7) {
+        return "7";
+    } else if (randomInt === 8) {
+        return "8";
+    }
+}
+console.log(magic8Ball(randomNumber));
+
 let countBy = function(x, y) {
     console.log(x);
     x += y;
