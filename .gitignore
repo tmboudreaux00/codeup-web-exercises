@@ -3,6 +3,7 @@
 localtest*.html
 js-1.html
 js/js-1.js
+table_of_contents.html
 
 .idea/*
 *.iml
