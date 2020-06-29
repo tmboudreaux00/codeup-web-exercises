@@ -50,6 +50,8 @@ var randomColor = colors[Math.floor(Math.random() * colors.length)];
 }
  console.log(colorPicker());
  */
+//console.log(analyzeColor(randomColor));
+
 /**
  * TODO:
  * Refactor your above function to use a switch-case statement

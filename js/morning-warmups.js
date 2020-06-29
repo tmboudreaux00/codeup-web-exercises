@@ -1,5 +1,23 @@
 // For morning-warmups.html
 
+let lights = "on";
+let lightSwitch = function () {
+    if (lights === "on") {
+        lights = "off";
+    } else {
+        lights = "on";
+    }
+}
+console.log("lights are " + lights);
+lightSwitch();
+console.log("lights are " + lights);
+lightSwitch();
+console.log("lights are " + lights);
+lightSwitch();
+console.log("lights are " + lights);
+lightSwitch();
+console.log("lights are " + lights);
+
 let numbers = [1, 2, 3, 4, 5, 6, 7, 8];
 let randomNumber = numbers[Math.floor(Math.random() * numbers.length)];
 
