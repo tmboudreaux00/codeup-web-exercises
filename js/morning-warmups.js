@@ -1,6 +1,32 @@
 // For morning-warmups.html
-git
+"use strict"
 
+
+
+//INCOMPLETE - WALKTHROUGH DID NOT MAKE SENSE - EXAMPLE CODE DID NOT MAKE SENSE - TOO MUCH SIDEBAR
+/**
+let str1 = "SSttrriinngg", str2 = "HHeelllloo  WWoorrlldd", str3 = "11223344!!__  ";
+
+let doubleChar = function(str) {
+    let returnString = '';
+    for (let i = 0; i < str.length; i++) {
+                //first i = 0, returnString += str[0] + str[0] === returnString += 'a' + 'a'
+                // second i = 1, returnString += str[1] + str[1] === returnString += 'b' + 'b'
+                // third i = 2, returnString += str[2] + str[2] === returnString += 'c' + 'c'
+                returnString += str[i] + str[i];
+                console.log(returnString);
+            }
+            return returnString;
+        }
+        returnString += str[i] + str[i];
+        console.log(returnString);
+    }
+
+    return returnString;
+}
+doubleChar(str);
+
+*/
 
 let lights = "on";
 let lightSwitch = function () {
