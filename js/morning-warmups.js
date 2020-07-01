@@ -1,14 +1,5 @@
 // For morning-warmups.html
-let loopOneThroughTen = function (){
-    for (let i = 1; i <= 10; i++) {
-        if (i % 2 !== 0) {
-            console.log(i + " is odd");
-        } else if (i % 2 === 0) {
-            console.log(i + " is even");
-        }
-    }
-}
-loopOneThroughTen();
+git
 
 
 let lights = "on";

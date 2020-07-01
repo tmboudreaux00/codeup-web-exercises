@@ -3,15 +3,16 @@
 
 
 
-let userInput = parseFloat(prompt("Enter an odd number between 1 and 50."));
+let userInput = parseInt(prompt("Enter an odd number between 1 and 50."));
 
 while (isNaN(userInput) || userInput % 2 === 0 || userInput < 1 || userInput > 50) {
     alert("Please enter a valid number.");
-    userInput = parseFloat(prompt("Enter an odd number between 1 and 50."));
+    userInput = parseInt(prompt("Enter an odd number between 1 and 50."));
     if (userInput % 2 !== 0 && userInput > 0 && userInput <= 50) {
         break;
     }
 }
+console.log("Number to skip is " + userInput);
 for (var i = 1; i < 50; i++) {
     if (i % 2 === 0) {
             continue;

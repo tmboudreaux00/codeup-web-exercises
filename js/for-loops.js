@@ -25,25 +25,11 @@ for (let i = 1; i <= 10; i++) {
 */
 
 for (let i = 1; i < 10; i++) {
-    if (i === 1) {
-        console.log(i + "");
-    } else if (i === 2) {
-        console.log (i + "" + i);
-    } else if (i === 3) {
-        console.log (i + "" + i + i);
-    } else if (i === 4) {
-        console.log (i + "" + i + i + i);
-    } else if (i === 5) {
-        console.log (i + "" + i + i + i + i);
-    } else if (i === 6) {
-        console.log (i + "" + i + i + i + i + i);
-    } else if (i === 7) {
-        console.log (i + "" + i + i + i + i + i + i);
-    } else if (i === 8) {
-        console.log (i + "" + i + i + i + i + i + i + i);
-    } else if (i === 9) {
-        console.log (i + "" + i + i + i + i + i + i + i + i);
-    }
+  let str = "";
+  for (let j = 1; j <= i; j++) {
+      str += i;
+  }
+    console.log(str);
 }
 
 for (let i = 100; i >= 0; i-=5) {
