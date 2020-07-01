@@ -6,7 +6,7 @@
      * Create an array of 4 people's names and store it in a variable called
      * 'names'.
      */
-    var names = ['Bob','Larry','Linda','Penelope']
+    var names = ['Bob','Larry','Linda','Penelope'];
     /**
      * TODO:
      * Create a log statement that will log the number of elements in the names
@@ -53,21 +53,18 @@
 
     var arrayOfFive = ['Dr. Pepper', 'Coke', 'Sprite', 'Barq\'s', 'Diet Coke']
 
-    arrayOfFive.forEach(first);
-
-    function first(element, index) {
-        console.log (element + " is a flavor of soda. It is at index " + index);
+    let  first = function() {
+        console.log(arrayOfFive[0] + " is a soda.");
     }
+    first();
 
-    arrayOfFive.forEach(second);
+    let  second = function() {
+        console.log(arrayOfFive[1] + " is a soda.");
+    }
+    second();
 
-    function second(element, index) {
-        console.log (element + " is a flavor of soda. It is at index " + index);
-}
-
-    arrayOfFive.forEach(third);
-    function third(element, index) {
-        console.log (element + " is a flavor of soda. It is at index " + index);
-}
-
+    let  last = function() {
+        console.log(arrayOfFive.pop() + " is a soda.");
+    }
+    last();
 })();
