@@ -1,9 +1,23 @@
 // For morning-warmups.html
 "use strict"
 
+let fizzBuzz = function() {
+    for (let i = 1; i < 31; i++) {
+        if (i % 15 === 0) {
+            console.log("fizzbuzz");
+        } else if (i % 3 === 0) {
+            console.log("fizz");
+        } else if (i % 5 === 0) {
+            console.log("buzz");;
+        } else {
+            console.log(i);;
+        }
+    }
+}
+fizzBuzz();
 
 
-//INCOMPLETE - WALKTHROUGH DID NOT MAKE SENSE - EXAMPLE CODE DID NOT MAKE SENSE - TOO MUCH SIDEBAR
+//INCOMPLETE - WALKTHROUGH DID NOT MAKE SENSE
 /**
 let str1 = "SSttrriinngg", str2 = "HHeelllloo  WWoorrlldd", str3 = "11223344!!__  ";
 
