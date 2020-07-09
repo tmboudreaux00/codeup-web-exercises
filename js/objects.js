@@ -30,7 +30,13 @@ var me = {
          *  > console.log(person.firstName) // "Rick"
          *  > console.log(person.lastName) // "Sanchez"
          */
-
+        var person = {
+            firstName: "Tim",
+            lastName: "B",
+            sayHello: function() {
+                return "Hello from " + this.firstName + " " + this.lastName + ".";
+            }
+        }
         /**
          * TODO:
          * Add a sayHello method to the person object that returns a greeting using
@@ -40,6 +46,8 @@ var me = {
          * Example
          * > console.log(person.sayHello()) // "Hello from Rick Sanchez!"
          */
+
+        console.log(person.sayHello());
 
         /** TODO:
          * HEB has an offer for the shoppers that buy products amounting to
@@ -61,7 +69,15 @@ var me = {
              {name: 'George', amount: 320}
          ];
 
+        shoppers.forEach(function(shopper){
+            let saved = 0;
+            if (shopper.amount > 200) {
+                saved = shopper.amount * .12;
+            }
+            console.log(shopper.name + " spent " + shopper.amount + ". They saved " + saved + " for a total of " + (shopper.amount - saved));
+        });
 
+        /**
         for (let i = 0; i < shoppers.length; i++) {
             let discountedCost = (shoppers[i].amount - (shoppers[i].amount * .12));
             if (shoppers[i].amount > 200) {
@@ -70,7 +86,7 @@ var me = {
                 console.log(shoppers[i].name + " did not receive a discount and spent a total of $" + shoppers[i].amount);
             }
         }
-
+        */
 
         /** TODO:
          * Create an array of objects that represent books and store it in a
@@ -117,9 +133,12 @@ var me = {
          *      ---
          *      ...
          */
+
+        // for loops for books
+        /**
         for (let i = 0; i < books.length; i++) {
             console.log("Book index #" + i + " is titled " + books[i].title + " and was authored by " + books[i].author.lastName + ", " + books[i].author.firstName) + ".";
-        }
+        } */
 
 
         /**
@@ -133,4 +152,36 @@ var me = {
          *   `showBookInfo` function.
          */
 
+
+
+
+
+        let createBook = function () {
+            for (let i = 0; i < Infinity; i++) {
+
+                let title = prompt("What is the title of the book?");
+                let firstName = prompt("What is the first name of the author?");
+                let lastName = prompt("What is the last name of the author?");
+                let moreBooks = confirm("Do you have anymore books to add? Press okay to add more, press cancel to continue.");
+                let bookInfo = [title, firstName, lastName];
+                let newBooks = {title: title, author: {firstName: firstName, lastName: lastName}};
+                if (moreBooks === true) {
+                    console.log(newBooks);;
+                    continue;
+                } else {
+                    return({title: title, author: {firstName: firstName, lastName: lastName}});
+                    break;
+                }
+            }
+        }
+        createBook();
+
+        let showBookInfo = function () {
+            for (let i = 0; i < createBook.length; i++) {
+                if (typeof createBook === 'function'){
+                console.log("Book index #" + i + " is titled " + createBook.title + " and was authored by " + createBook.author.lastName + ", " + createBook.author.firstName) + ".";
+            }
+            }
+        }
+        showBookInfo();
     })();
