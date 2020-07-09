@@ -1,10 +1,16 @@
 #Add ignore files. Folders cannot be ignored, but folders contents can, e.g. .idea/*
 
+
+#PERSONAL AND OTHERWISE
 localtest*.html
 js-1.html
 js/js-1.js
 table_of_contents.html
 
+#IMPORTANT - DO NOT CHANGE
 .idea/*
 *.iml
 .DS_STORE
+js/keys.js
+keys.js
+
