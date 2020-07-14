@@ -1,5 +1,39 @@
 // For morning-warmups.html
 "use strict"
+g
+let tensPosition = function (num) {
+    return tensPosition = Math.floor((num / 100));
+    return tensPosition/10;
+}
+console.log(tensPosition(345));
+
+
+var fibonacci_series = function (n)
+{
+    if (n===1)
+    {
+        return [0, 1];
+    }
+    else
+    {
+        var s = fibonacci_series(n - 1);
+        s.push(s[s.length - 1] + s[s.length - 2]);
+        return s;
+    }
+};
+
+console.log(fibonacci_series(8));
+
+/**
+let fibonacci = function () {
+    let num = 1;
+    let num2 = 0;
+    for (let i = 0; i < 30; i++) {
+        let fNum = num + num2;
+        return fNum;
+    } if (i <)
+}
+*/
 
 let fizzBuzz = function() {
     for (let i = 1; i < 31; i++) {
