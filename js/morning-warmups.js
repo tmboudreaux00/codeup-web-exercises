@@ -1,6 +1,6 @@
 // For morning-warmups.html
 "use strict"
-g
+
 let tensPosition = function (num) {
     return tensPosition = Math.floor((num / 100));
     return tensPosition/10;
