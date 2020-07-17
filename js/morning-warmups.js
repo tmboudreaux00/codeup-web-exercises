@@ -1,6 +1,17 @@
 // For morning-warmups.html
 "use strict"
-g
+
+let sortArray = function (arr) {
+    for(let i = 0; i<arr.length; i++){
+        if (typeof arr[i] !== 'string'){
+            return null;
+        }
+    }
+    return arr.sort().reverse();
+};
+console.log(sortArray(["able", "baker", "charlie", "dog", "easy"]));
+console.log(sortArray(["zebra", "yoke", "x-ray", 3]));
+
 let tensPosition = function (num) {
     return tensPosition = Math.floor((num / 100));
     return tensPosition/10;
