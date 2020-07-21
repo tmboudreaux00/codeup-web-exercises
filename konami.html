@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://kit.fontawesome.com/97dc1343e3.js" crossorigin="anonymous"></script>
+    <title>Konami Code</title>
+</head>
+<body>
+<style>
+    .fillRed {
+        color: red;
+    }
+    .fillGray {
+        color: gray;
+    }
+    .hideHearts {
+        display: none;
+    }
+    .blackText {
+        color: black;
+    }
+    .whiteText {
+        color: white;
+    }
+</style>
+<h1 style="text-align: center;">Konami Code</h1>
+
+<div id="heartsDiv">
+    <i class="fas fa-heart fa-5x"></i>
+    <i class="fas fa-heart fa-5x"></i>
+    <i class="fas fa-heart fa-5x"></i>
+    <i class="fas fa-heart fa-5x"></i>
+    <i class="fas fa-heart fa-5x"></i>
+    <i class="fas fa-heart fa-5x"></i>
+    <i class="fas fa-heart fa-5x"></i>
+    <i class="fas fa-heart fa-5x"></i>
+    <i class="fas fa-heart fa-5x"></i>
+    <i class="fas fa-heart fa-5x"></i>
+    <i class="fas fa-heart fa-5x"></i>
+    <i class="fas fa-heart fa-5x"></i>
+    <i class="fas fa-heart fa-5x"></i>
+    <i class="fas fa-heart fa-5x"></i>
+    <i class="fas fa-heart fa-5x"></i>
+    <i class="fas fa-heart fa-5x"></i>
+    <i class="fas fa-heart fa-5x"></i>
+    <i class="fas fa-heart fa-5x"></i>
+    <i class="fas fa-heart fa-5x"></i>
+    <i class="fas fa-heart fa-5x"></i>
+    <i class="fas fa-heart fa-5x"></i>
+    <i class="fas fa-heart fa-5x"></i>
+    <i class="fas fa-heart fa-5x"></i>
+    <i class="fas fa-heart fa-5x"></i>
+    <i class="fas fa-heart fa-5x"></i>
+    <i class="fas fa-heart fa-5x"></i>
+    <i class="fas fa-heart fa-5x"></i>
+    <i class="fas fa-heart fa-5x"></i>
+    <i class="fas fa-heart fa-5x"></i>
+    <i class="fas fa-heart fa-5x"></i>
+</div>
+
+
+
+<script src="js/jquery-3.5.1.js"></script>
+<script>
+    "use strict";
+    $(document).ready(function() {
+        $('#heartsDiv').addClass('hideHearts');
+        $('i').addClass('fillGray');
+
+    });
+    let getRandomColor = function() {
+        var letters = '0123456789ABCDEF';
+        var color = '#';
+        for (var i = 0; i < 6; i++) {
+            color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+    }
+    function setRandomColor() {
+        $("#colorpad").css("background-color", getRandomColor());
+    }
+
+    var hearts = $('i');
+    var heartCount = hearts.length;
+    var codeObject = {};
+    codeObject.key = '38384040373937396665666513';
+    codeObject.codeEntry = function() {
+        var keyPress = "";
+        var codeEntered = false;
+        $(document).on('keyup', function(e) {
+            keyPress += ("" + e.keyCode);
+            if (keyPress === codeObject.key) {
+                $('h1').after('<h3 style="text-align: center;" class="blackText hideHearts">Congratulations, cheater! You now have 30 lives!</h3>');
+                $('h3').slideDown(2000, function () {
+                    $('h3').removeClass('hideHearts');
+                });
+
+                $('#heartsDiv').delay(500).fadeIn(2500, function () {
+                    hearts.removeClass('hideHearts');
+                });
+                codeEntered = true;
+                $('i').each(function (i) {
+                    if (codeEntered === true) {
+                        console.log("this is #" + i);
+                        $('i').delay(5000).removeClass('fillGray').fadeIn(2500).addClass('fillRed');
+                    }
+                });
+
+            }
+
+            if (!codeObject.key.indexOf(keyPress)) return;
+            keyPress = ("" + e.keyCode);
+        });
+
+    }
+    codeObject.codeEntry();
+    console.log(heartCount);
+    /**
+    $(document).keyup(function(event){
+        console.log(event.keyCode);
+    });
+     */
+</script>
+</body>
+</html>
