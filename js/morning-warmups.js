@@ -1,6 +1,17 @@
 // For morning-warmups.html
 "use strict"
 
+let evenlyDivisible = function (num1, num2) {
+    if (typeof num1 === "number" && typeof num2 === "number"){
+        return num1 % num2 === 0;
+    } else {
+        return null;
+    }
+
+}
+console.log(evenlyDivisible(4, 2));
+console.log(evenlyDivisible(5, 2));
+console.log(evenlyDivisible("hello", 3));
 let tensPosition = function (num) {
     return tensPosition = Math.floor((num / 100));
     return tensPosition/10;
