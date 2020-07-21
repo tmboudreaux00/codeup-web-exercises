@@ -102,13 +102,10 @@
                     hearts.removeClass('hideHearts');
                 });
                 codeEntered = true;
-                $('i').each(function (i) {
-                    if (codeEntered === true) {
+                for (let i = 0; i < heartCount; i++) {
                         console.log("this is #" + i);
-                        $('i').delay(5000).removeClass('fillGray').fadeIn(2500).addClass('fillRed');
+                        hearts.removeClass('fillGray').fadeIn(2500).addClass('fillRed');
                     }
-                });
-
             }
 
             if (!codeObject.key.indexOf(keyPress)) return;

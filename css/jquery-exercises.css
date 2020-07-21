@@ -1,0 +1,15 @@
+.h1Background {
+    background-color: #3B94D9;
+    border: 3px red dashed;
+}
+
+.font18 {
+    font-size: 18px;
+}
+
+.liTextHover {
+    color: red;
+}
+.all {
+    width: auto;
+}
