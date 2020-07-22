@@ -1,6 +1,20 @@
 // For morning-warmups.html
 "use strict"
 
+let lengthInch = function(num) {
+    if (num < 12) {
+        return ("Length is " + num + " inches")
+    } else if (num === 12) {
+        return ("Length is one foot");
+    } else {
+        return Math.floor(num/12) + "ft " + (num % 12) + "in";
+    }
+}
+console.log(lengthInch(2));
+console.log(lengthInch(12));
+console.log(lengthInch(22));
+
+
 let sortArray = function (arr) {
     for(let i = 0; i<arr.length; i++){
         if (typeof arr[i] !== 'string'){

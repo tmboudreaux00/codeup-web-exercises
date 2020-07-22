@@ -30,9 +30,7 @@ $(document).ready(function() {
         $(this).next().children().toggleClass('bolded');
     });
     $('li').click(function() {
-        $(this).siblings('li:first').toggleClass('colorBlue');
+        $(this).parent().children().first().toggleClass('colorBlue');
         console.log("I'm a list item!");
-
-        //jQuery('#myDiv').siblings('p').first()
     });
 });
