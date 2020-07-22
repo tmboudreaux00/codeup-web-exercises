@@ -5,35 +5,10 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/jquery_FAQ.css">
     <title>10 FAQs About National Parks</title>
 </head>
-<body class="positionRelative">
-<style>
-    .hidden {
-        visibility: hidden;
-    }
-    .center {
-        text-align: center;
-    }
-    .highlight {
-        background: yellow;
-    }
-    .adjustMe {
-        position: absolute;
-        top: 10;
-        left: 25%;
-        border: 1px solid black;
-        width: 50%;
-    }
-    .buttonAttributes {
-        position: absolute;
-        top: 0;
-        right: 25%;
-    }
-    .positionRelative {
-        position: relative;
-    }
-</style>
+<body class="positionRelative flexed">
 <h1>National Park FAQs</h1>
 <div>
 <dl>
@@ -85,32 +60,37 @@
     </ul></dd>
 </dl>
 </div>
-<button class="buttonAttributes">Adjust Me!</button>
-<script src="js/jquery-3.5.1.js"></script>
-<script>
-    let h1El, divEl, dlEl, ddEl, dtEl, ulEl, liEl, btn;
-    h1El = $('h1');
-    divEl = $('div');
-    dlEl = $('dl');
-    ddEl = $('dd');
-    dtEl = $('dt');
-    ulEl = $('ul');
-    liEl = $('li');
-    btn = $('button');
+<div>
+    <h3>Big Bend National Park</h3>
+    <ul class="ulClass" >
+        <li>Factoid</li>
+        <li>Factoid</li>
+        <li>Factoid</li>
+        <li>Factoid</li>
+    </ul>
+    <h3>Guadalupe Mountains</h3>
+    <ul class="ulClass">
+        <li>Factoid</li>
+        <li>Factoid</li>
+        <li>Factoid</li>
+        <li>Factoid</li>
+    </ul>
 
-    $(document).ready(function() {
-        console.log("ready!");
-        h1El.addClass('center');
-        ddEl.addClass('hidden');
-        dtEl.click(function(){
-            $(this).toggleClass('highlight');
-            $(this).next().toggleClass('hidden');
-        });
-        btn.click(function(){
-            divEl.toggleClass('adjustMe');
-        });
-    });
-</script>
+    <h3>Padre Island National Seashore</h3>
+    <ul class="ulClass">
+        <li>Factoid</li>
+        <li>Factoid</li>
+        <li>Factoid</li>
+        <li>Factoid</li>
+    </ul>
+
+</div>
+<button class="adjustBtnAttrib" id="adjustBtn">Adjust Me!</button>
+<button class="highlightBtnAttrib" id="hltBtn">Highlighter!</button>
+
+
+<script src="js/jquery-3.5.1.js"></script>
+<script src="js/jquery_FAQ.js"></script>
 </body>
 </html>
 

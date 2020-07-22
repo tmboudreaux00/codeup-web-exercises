@@ -1,0 +1,39 @@
+
+.hidden {
+    visibility: hidden;
+}
+.center {
+    text-align: center;
+}
+.highlight {
+    background: yellow;
+}
+.adjustMe {
+    border: 1px solid black;
+    width: 50%;
+}
+.adjustBtnAttrib {
+    position: absolute;
+    top: 0;
+    right: 25%;
+}
+.highlightBtnAttrib {
+    position: absolute;
+    bottom: 0;
+    right: 25%;
+}
+
+.positionRelative {
+    position: relative;
+}
+.flexed {
+    display: flex;
+    flex-direction: column;
+    border: 1px red dashed;
+}
+.bolded {
+    font-weight: bold;
+}
+.colorBlue {
+    color: blue;
+}
