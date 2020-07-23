@@ -1,0 +1,101 @@
+[
+    {
+        "albumname": "Undertow",
+        "sales": "3,100,000 World-Wide",
+        "certifications": [
+
+                "RIAA: 2x Platinum",
+                "ARIA: Platinum",
+                "MC: Platinum"
+
+        ],
+        "chartposition": [
+
+                "AUS: 21",
+                "UK: -",
+                "US: 19"
+
+        ],
+        "year": 1993
+    },
+
+    {
+        "albumname": "Ænima",
+        "sales": "4,000,000 World-Wide",
+        "certifications": [
+
+            "RIAA: 3x Platinum",
+            "ARIA: 3x Platinum",
+            "MC: Platinum"
+
+        ],
+        "chartposition": [
+
+            "AUS: 6",
+            "UK: 108",
+            "US: 2"
+
+        ],
+        "year": 1996
+    },
+
+    {
+        "albumname": "Lateralus",
+        "sales": "2,609,000 US",
+        "certifications": [
+
+            "RIAA: 2x Platinum",
+            "ARIA: 2x Platinum",
+            "MC: 2x Platinum"
+
+        ],
+        "chartposition": [
+
+            "AUS: 1",
+            "UK: 1",
+            "US: 16"
+
+        ],
+        "year": 2001
+    },
+
+    {
+        "albumname": "10,000 Days",
+        "sales": "2,000,000 World-Wide",
+        "certifications": [
+
+            "RIAA: Platinum",
+            "ARIA: Platinum",
+            "MC: Platinum"
+
+        ],
+        "chartposition": [
+
+            "AUS: 1",
+            "UK: 1",
+            "US: 4"
+
+        ],
+        "year": 2006
+    },
+
+    {
+        "albumname": "Fear Innoculum",
+        "sales": "388,000 US",
+        "certifications": [
+
+            "RIAA: -",
+            "ARIA: -",
+            "MC: -"
+
+        ],
+        "chartposition": [
+
+            "AUS: 1",
+            "UK: 1",
+            "US: 4"
+
+        ],
+        "year": 2019
+    }
+]
