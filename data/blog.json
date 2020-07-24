@@ -16,5 +16,15 @@
             "sugar"
         ],
         "date": "February 14, 2015"
+    },
+    {
+        "title": "Romulan Incursion",
+        "content": "Romulan Bird-of-Prey attacked Federation installations Outpost 2, Outpost 3, Outpost 4 and Outpost 8. Outposts 2, 3 and 8 were destroyed. The USS Enterprise under Captain James T. Kirk set out to rendezvous at Outpost 4 to provide assistance. Upon approach, the Enterprise was attacked by the Bird-of-Prey. After a skirmish, the Enterprise critically damaged the Bird-of-Prey. Rather than surrender to the Federation, the Romulan commander initiated self-destruct, thereby ensuring his ship and crew would not be captured.",
+        "categories": [
+            "federation",
+            "romulan star empire",
+            "uss enterprise"
+        ],
+        "date": "Stardate 1709"
     }
 ]

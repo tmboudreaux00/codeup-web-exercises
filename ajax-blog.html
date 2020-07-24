@@ -8,15 +8,32 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <title>My Blog Posts</title>
 </head>
-<body>
+<style>
+    .img {
+        height: 25%;
+        width: 25%;
+    }
+</style>
+<body class="text-center hero-image">
 <header>
-    <button class="btn" id="submit">Get Posts</button>
+    <h1>The Captain's bLog</h1>
+    <div class="mt-2"><img class="img" src="img/captainlog.jpg"></div>
+    <button class="btn btn-primary mt-2" id="submit">Get Posts</button>
 </header>
+<main>
 <div id="posts">
+    <div class="row">
+        <div class="col">Title</div>
+        <div class="col">Post</div>
+        <div class="col">Categories</div>
+        <div class="col">Date</div>
+    </div>
+
 </div>
 <div id="postdata">
 
 </div>
+</main>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
@@ -30,11 +47,11 @@
                 $('#postdata').html("");
                 info.forEach(function(blogdata){
                     $('#postdata').append('<div class="container">'
-                        + '<div class="row">'
-                        + '<div class="col">' + blogdata.title + '</div>'
-                        + '<div class="col">' + blogdata.content + '</div>'
-                        + '<div class="col">' + blogdata.categories + '</div>'
-                        + '<div class="col">' + blogdata.date + '</div>'
+                        + '<div class="row border mt-3">'
+                        + '<div class="col border">' + blogdata.title + '</div>'
+                        + '<div class="col border">' + blogdata.content + '</div>'
+                        + '<div class="col border">' + blogdata.categories + '</div>'
+                        + '<div class="col border">' + blogdata.date + '</div>'
                         + '</div>'
                         + '</div>');
                 });
