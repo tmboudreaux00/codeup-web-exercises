@@ -1,6 +1,29 @@
 // For morning-warmups.html
 "use strict"
 
+let fizzBuzz = function(num) {
+
+    if (typeof num !== 'number') {
+        return null;
+    } else if (num % 15 === 0) {
+        return "FIZZBUZZ";
+    } else if (num % 3 === 0) {
+        return "FIZZ";
+    } else if (num % 5 === 0) {
+        return "BUZZ";
+    } else {
+        return num;
+    }
+}
+console.log(fizzBuzz(3));
+console.log(fizzBuzz(5));
+console.log(fizzBuzz(15));
+console.log(fizzBuzz("hello"));
+console.log(fizzBuzz(6));
+console.log(fizzBuzz(13));
+console.log(fizzBuzz(30));
+
+
 let evenlyDivisible = function (num1, num2) {
     if (typeof num1 === "number" && typeof num2 === "number"){
         return num1 % num2 === 0;
@@ -45,7 +68,7 @@ let fibonacci = function () {
     } if (i <)
 }
 */
-
+/**
 let fizzBuzz = function() {
     for (let i = 1; i < 31; i++) {
         if (i % 15 === 0) {
@@ -60,32 +83,8 @@ let fizzBuzz = function() {
     }
 }
 fizzBuzz();
-
-
-//INCOMPLETE - WALKTHROUGH DID NOT MAKE SENSE
-/**
-let str1 = "SSttrriinngg", str2 = "HHeelllloo  WWoorrlldd", str3 = "11223344!!__  ";
-
-let doubleChar = function(str) {
-    let returnString = '';
-    for (let i = 0; i < str.length; i++) {
-                //first i = 0, returnString += str[0] + str[0] === returnString += 'a' + 'a'
-                // second i = 1, returnString += str[1] + str[1] === returnString += 'b' + 'b'
-                // third i = 2, returnString += str[2] + str[2] === returnString += 'c' + 'c'
-                returnString += str[i] + str[i];
-                console.log(returnString);
-            }
-            return returnString;
-        }
-        returnString += str[i] + str[i];
-        console.log(returnString);
-    }
-
-    return returnString;
-}
-doubleChar(str);
-
 */
+
 
 let lights = "on";
 let lightSwitch = function () {
