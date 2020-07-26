@@ -10,22 +10,27 @@
             lat: 29.42,
             lon: -98.49,
             units: "imperial",
-            
-
             //lang: "de"
         }).done(function(data) {
             //UNIX date/time stamps converter
             let currentUTC = data.current.dt;
+            var currentWeekday = function(){
+                let currentWeekdayNum = (Math.floor(currentUTC / 86400) + 4) % 7;
+                let daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+                let day = daysOfWeek[currentWeekdayNum];
+                return(day);
+            };
             var hour;
-            var timeConverter = function(currentUTC){
+
+            let timeConverter = function(currentUTC){
                 var a = new Date(currentUTC * 1000);
                 var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
                 var year = a.getFullYear();
                 var month = months[a.getMonth()];
                 var date = a.getDate();
-                hour = a.getHours();
+                let hour = a.getHours();
                 var min = a.getMinutes() < 10 ? '0' + a.getMinutes() : a.getMinutes();
-                var time = date + ' ' + month + ' ' + year + ' ' + hour + ':' + min;
+                var time = month + ' ' + date + ' ' + year + ' ' + hour + ':' + min;
                 return time;
             }
 
@@ -34,9 +39,9 @@
 
 
            // + '<div>' + '<span>Current Temperature For </span>' + "San Antonio"/**data.name*/ + '</div>'
-            let currentDailyHigh;
-            let currentDailyLow;
-            let noExtremeTemp = function() {
+            var currentDailyHigh;
+            var currentDailyLow;
+            var noExtremeTemp = function() {
                 if (hour < 18) {
                     currentDailyHigh = data.daily[0].temp.max;
                 } else {
@@ -53,14 +58,14 @@
             let coolerWarmer = function () {
                 return "UNFINISHED"
             }
-            data.daily.forEach(function(days){
+
 
                 $('#weatherdata').html("");
                 $('#weatherdata').append('<div class="container-fluid">'
 
                 + '<div class="row">'
                 + '<div class="card" style="width: 18rem;">'
-                + '<div>' + timeConverter(currentUTC) + '</div>'
+                + '<div>' + currentWeekday() + ' ' + timeConverter(currentUTC) + '</div>'
                 + '<div class="row">'
 
                 + '<div class="col-9">' + '<span class="border border-warning rounded-circle">' + '<div class="col">'
@@ -82,11 +87,79 @@
                 + '</div>' //circle temp card
 
                 + '<div class="card" style="width: 18rem;">'
-                + '<div>' + '<span>' + '</span>' + '</div>'
+                + '<div>' + 'map' + '</div>'
                 + '<div>' + '<span>' + '</span>' + '</div>'
                 + '</div>' //map card
                 + '</div>' //row containing card
+                + '<div class="row flex-nowrap mt-3" id="forecastdata">' + '</div>'
                 );
+
+                data.daily.forEach(function(ahora, index){
+                    //forecast date
+                    let forecastUTC = data.daily[index].dt;
+                    let forecastDT = data.daily[index];
+                    var forecastWeekdayNum = (Math.floor(forecastUTC / 86400) + 4) % 7;
+                    var forecastWeekday = function(){
+                        let daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+                        let day = daysOfWeek[forecastWeekdayNum];
+                        return(day);
+                    };
+
+                    let forecastDate = function(){
+                        var a = new Date(forecastUTC * 1000);
+                        var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+                        var year = a.getFullYear();
+                        var month = months[a.getMonth()];
+                        var date = a.getDate();
+                        var time = month + ' ' + date;
+                        return time;
+                    }
+
+                    let forecastSunrise = function(){
+                        let date = new Date(forecastDT.sunrise * 1000);
+                        let options = {
+                            hour: 'numeric',
+                            minute: 'numeric',
+                            hour12: true
+                        };
+                        let timeString = date.toLocaleString('en-US', options);
+                        return timeString;
+                    }
+
+                    let forecastSunset = function() {
+                        let date = new Date(forecastDT.sunset * 1000);
+                        let options = {
+                            hour: 'numeric',
+                            minute: 'numeric',
+                            hour12: true
+                        };
+                        let timeString = date.toLocaleString('en-US', options);
+                        return timeString;
+                    }
+
+                    // 7 day forecast
+                if (index > 0) {
+                    $('#forecastdata').append('<div class="card" style="width: 18rem;">'
+                        + '<div>' + forecastWeekday(0) + ' ' + forecastDate(forecastUTC) + '</div>'
+                        + '<span>' + 'Hi ' + data.daily[index].temp.max + '</span>'
+                        + '<span>' + 'Lo ' + data.daily[index].temp.min + '</span>'
+                        + '<span>' + 'Sunrise: ' + forecastSunrise() + '</span>'
+                        + '<span>' + 'Sunset: ' + forecastSunset() + '</span>'
+                        + '</div>' //forecast card
+
+                        + '<div>' + '<span>' + '</span>' + '</div>'
+                        + '<div>' + '<span>' + '</span>' + '</div>'
+                    );
+                };
+
+                /** TEMPlATE
+                + '<div class="row">'
+                + '<div>' + '<span>' + '</span>' + '</div>'
+                + '<div>' + '<span>' + '</span>' + '</div>'
+                + '</div>'
+                 */
+
+                console.log(data.daily[index]);
             });
             console.log(data);
 
