@@ -1,3 +1,10 @@
 body {
 
 }
+
+.currentTemp {
+    font-size: 3em;
+}
+.normalSize {
+    font-size: .25em;
+}

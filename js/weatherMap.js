@@ -24,7 +24,7 @@
 
             let timeConverter = function(currentUTC){
                 var a = new Date(currentUTC * 1000);
-                var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+                var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
                 var year = a.getFullYear();
                 var month = months[a.getMonth()];
                 var date = a.getDate();
@@ -59,31 +59,46 @@
                 return "UNFINISHED"
             }
 
+            let cloudiness = function(){
+                let cloudPercent = data.current.clouds;
+                if (cloudPercent >= 88) {
+                    return 'Overcast / Cloudy';
+                } else if (cloudPercent >= 70 && cloudPercent <= 87) {
+                    return 'Mostly Cloudy'
+                } else if (cloudPercent >= 51 && cloudPercent <= 69) {
+                    return 'Parly Sunny / Mostly Cloudy'
+                } else if (cloudPercent >= 26 && cloudPercent <= 50) {
+                    return 'Mostly Sunny / Partly Cloudy'
+                } else if (cloudPercent >= 6 && cloudPercent <= 25) {
+                    return 'Sunny / Mostly Clear'
+                } else {
+                    return 'Sunny / Clear'
+                }
+            }
 
                 $('#weatherdata').html("");
                 $('#weatherdata').append('<div class="container-fluid">'
 
                 + '<div class="row">'
-                + '<div class="card" style="width: 18rem;">'
+                + '<div class="card" style="width: 40%;">'
                 + '<div>' + currentWeekday() + ' ' + timeConverter(currentUTC) + '</div>'
                 + '<div class="row">'
 
-                + '<div class="col-9">' + '<span class="border border-warning rounded-circle">' + '<div class="col">'
-                + '<div class="row">' + currentDailyHigh + '<span>&deg;</span>' + '<span class="divider">|</span>' + currentDailyLow + '<span>&deg;</span>' + '</div>'
-                + '<div class="row">' + data.current.temp + '<span>&deg;F</span>' + '</div>'
-                + '<div class="row">' + 'LIKE ' + data.current.feels_like + '<span>&deg;</span>' + '</div>'
+                + '<div class="col-8 p-0 border border-warning rounded-circle text-center">'
+                    + '<div class="col p-0">'
+                    + '<div class="row mt-3">' + '<div class="col">' + currentDailyHigh + '<span>&deg;</span>' + '<span class="divider"> | </span>' + currentDailyLow + '<span>&deg;</span>' + '</div>' + '</div>'
+                    + '<div class="row">' + '<div class="col currentTemp">' +  Math.max(Math.round(data.current.temp * 10) / 10, 2.8).toFixed(1) + '<span class="normalSize">&deg;F</span>' + '</div>' + '</div>'
+                    + '<div class="row">' + 'BE FEELIN\' LIKE ' + Math.max(Math.round(data.current.feels_like * 10) / 10, 2.8).toFixed(1) + '<span>&deg;</span>' + '</div>'
+                + '</div>'//col with temps rounded circle
+                + '</div>'//col-8
 
-
-                + '</div>'//col with temps
-                + '</span>'//rounded-circle
-                + '</div>'//col-9
-
-                + '<div class="col-3">'
-                    + '<div class="row">' + 'cloud icon' + '</div>' + 'cloudy' + '<div class="row">' + 'wind compass' + '<div class="row">' + 'Gusts 7 mph' +  '</div>' + '<div class="row">' + '</div>' + '</div>'
+                + '<div class="col-4">'
+                    + '<div class="row">'
+                    + '<div>' + '<img src="http://openweathermap.org/img/w/' + data.current.weather[0].icon + '.png">' + '</div>'
+                    + '</div>' + cloudiness() + '<div class="row">' + 'wind compass' + '<div class="row">' + 'Gusts 7 mph' +  '</div>' + '<div class="row">' + '</div>' + '</div>'
                 + '</div>'//col-3
-
-                + '<div class="col">' + "Tomorrow's temperature is forecast to be " + coolerWarmer() + " than today." + '</div>'
                 + '</div>' //row below date/time
+                + '<div class="row">' + "Tomorrow's temperature is forecast to be " + coolerWarmer() + " than today." + '</div>'
                 + '</div>' //circle temp card
 
                 + '<div class="card" style="width: 18rem;">'
@@ -138,16 +153,38 @@
                     }
 
                     // 7 day forecast
-                if (index > 0) {
-                    $('#forecastdata').append('<div class="card" style="width: 18rem;">'
-                        + '<div>' + forecastWeekday(0) + ' ' + forecastDate(forecastUTC) + '</div>'
-                        + '<span>' + 'Hi ' + data.daily[index].temp.max + '</span>'
-                        + '<span>' + 'Lo ' + data.daily[index].temp.min + '</span>'
-                        + '<span>' + 'Sunrise: ' + forecastSunrise() + '</span>'
-                        + '<span>' + 'Sunset: ' + forecastSunset() + '</span>'
+                if (index > 0 && index % 2 === 0) {
+                    $('#forecastdata').append('<div class="card mx-1 bg-secondary" style="width: 18rem;">'
+                        + '<div>' + forecastWeekday() + ' ' + forecastDate(forecastUTC) + '</div>'
+                        + '<div class="row">'
+                        + '<div class="col-4">' + '<img src="http://openweathermap.org/img/w/' + data.daily[index].weather[0].icon + '.png">' + '</div>'
+                        + '<div class="col-8">'
+                        + '<div>' + 'Hi ' + Math.max(Math.round(data.daily[index].temp.max * 10) / 10, 2.8).toFixed(1) + '</div>'
+                        + '<div>' + 'Lo ' + Math.max(Math.round(data.daily[index].temp.min * 10) / 10,2.8).toFixed(1) + '</div>'
+                        + '</div>' //temp hi/lo group
+                        + '</div>' //temp and conditions
+                        + '<div>' + 'Sunrise: ' + forecastSunrise() + '</div>'
+                        + '<div>' + 'Sunset: ' + forecastSunset() + '</div>'
                         + '</div>' //forecast card
 
+
                         + '<div>' + '<span>' + '</span>' + '</div>'
+                    );
+                } else if (index > 0 && index % 2 !== 0) {
+                    $('#forecastdata').append('<div class="card mx-1 bg-light" style="width: 18rem;">'
+                        + '<div>' + forecastWeekday() + ' ' + forecastDate(forecastUTC) + '</div>'
+                        + '<div class="row">'
+                        + '<div class="col-4">' + '<img src="http://openweathermap.org/img/w/' + data.daily[index].weather[0].icon + '.png">' + '</div>'
+                        + '<div class="col-8">'
+                        + '<div>' + 'Hi ' + Math.max(Math.round(data.daily[index].temp.max * 10) / 10, 2.8).toFixed(1) + '</div>'
+                        + '<div>' + 'Lo ' + Math.max(Math.round(data.daily[index].temp.min * 10) / 10,2.8).toFixed(1) + '</div>'
+                        + '</div>' //temp hi/lo group
+                        + '</div>' //temp and conditions
+                        + '<div>' + 'Sunrise: ' + forecastSunrise() + '</div>'
+                        + '<div>' + 'Sunset: ' + forecastSunset() + '</div>'
+                        + '</div>' //forecast card
+
+
                         + '<div>' + '<span>' + '</span>' + '</div>'
                     );
                 };
