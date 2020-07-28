@@ -1,10 +1,89 @@
 body {
 
 }
-
+.aspectRatioLg {
+    border: 5px;
+    width: 218px;
+}
+.aspectRatioSm {
+    border-color: gray;
+    height: 30px;
+    width: 30px;
+}
 .currentTemp {
     font-size: 3em;
 }
 .normalSize {
     font-size: .25em;
 }
+.tomorrowCooler {
+    color: blue;
+    font-style: italic;
+    font-weight: bold;
+}
+.tomorrowSame {
+    color: green;
+    font-style: italic;
+    font-weight: bold;
+}
+.tomorrowWarmer {
+    color: red;
+    font-style: italic;
+    font-weight: bold;
+}
+.arrow {
+    padding-top: 4%;
+    color: red;
+}
+.arrowN {
+    transform: rotate(-45deg);
+}
+.arrowNNE {
+    transform: rotate(-22.5deg);
+}
+.arrowNE {
+    /** native direction **/
+}
+.arrowENE {
+    transform: rotate(22.5deg);
+}
+.arrowE {
+    transform: rotate(45deg);
+}
+.arrowESE {
+    transform: rotate(67.5deg);
+}
+.arrowSE {
+    transform: rotate(90deg);
+}
+.arrowSSE {
+    transform: rotate(112.5deg);
+}
+.arrowS {
+    transform: rotate(135deg);
+}
+.arrowSSW {
+    transform: rotate(157.5deg);
+}
+.arrowSW {
+    transform: rotate(180deg);
+}
+.arrowWSW {
+    transform: rotate(-157.5deg);
+}
+.arrowW {
+    transform: rotate(-135deg);
+}
+.arrowWNW {
+     transform: rotate(-112.5deg);
+ }
+.arrowNW {
+      transform: rotate(-90deg);
+  }
+.arrowNNW {
+       transform: rotate(-67.5deg);
+   }
+
+
+
+

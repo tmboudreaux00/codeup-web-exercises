@@ -4,12 +4,12 @@
     //get api data for weather report on button click
     $('#submit').click(function(e){
         e.preventDefault();
-        $.get("http://api.openweathermap.org/data/2.5/onecall", {
+        $.get('http://api.openweathermap.org/data/2.5/onecall', {
             APPID: OPEN_WEATHER_APPID,
             //confirm coordinates at latlong.net
             lat: 29.42,
             lon: -98.49,
-            units: "imperial",
+            units: 'imperial',
             //lang: "de"
         }).done(function(data) {
             //UNIX date/time stamps converter
@@ -21,87 +21,195 @@
                 return(day);
             };
             var hour;
-
             let timeConverter = function(currentUTC){
                 var a = new Date(currentUTC * 1000);
                 var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
                 var year = a.getFullYear();
                 var month = months[a.getMonth()];
                 var date = a.getDate();
-                let hour = a.getHours();
+                hour = a.getHours();
                 var min = a.getMinutes() < 10 ? '0' + a.getMinutes() : a.getMinutes();
                 var time = month + ' ' + date + ' ' + year + ' ' + hour + ':' + min;
                 return time;
             }
+            timeConverter(currentUTC);
 
             //location converter
             let userLocation = "";
 
 
            // + '<div>' + '<span>Current Temperature For </span>' + "San Antonio"/**data.name*/ + '</div>'
-            var currentDailyHigh;
-            var currentDailyLow;
-            var noExtremeTemp = function() {
-                if (hour < 18) {
-                    currentDailyHigh = data.daily[0].temp.max;
-                } else {
-                    currentDailyHigh = "--";
-                }
+            var currentDailyHi = data.daily[0].temp.max;
+            var currentDailyLo = data.daily[0].temp.min;
+            var tomorrowHi = data.daily[1].temp.max;
 
-                if (hour != 6) {
-                    currentDailyLow = data.daily[0].temp.min;
+            let yesterdayCoolerWarmer = function () {
+                if (yesterdayHi > currentDailyHi) {
+                    return 'Yesterday was ' + '<span class="mx-1 tomorrowCooler"> cooler </span> ' + ' than today at this time.';
+                } else if (yesterdayHi === currentDailyHi) {
+                    return 'Yesterday was ' + '<span class="mx-1 tomorrowSame"> about the same </span> ' + ' as today at this time.';
                 } else {
-                    currentDailyLow = "--"
+                    return 'Yesterday was ' + '<span class="mx-1 tomorrowWarmer">' + ' warmer ' +  '</span> ' + ' than today at this time.';
                 }
             }
-            noExtremeTemp();
-            let coolerWarmer = function () {
-                return "UNFINISHED"
-            }
-
-            let cloudiness = function(){
-                let cloudPercent = data.current.clouds;
-                if (cloudPercent >= 88) {
-                    return 'Overcast / Cloudy';
-                } else if (cloudPercent >= 70 && cloudPercent <= 87) {
-                    return 'Mostly Cloudy'
-                } else if (cloudPercent >= 51 && cloudPercent <= 69) {
-                    return 'Parly Sunny / Mostly Cloudy'
-                } else if (cloudPercent >= 26 && cloudPercent <= 50) {
-                    return 'Mostly Sunny / Partly Cloudy'
-                } else if (cloudPercent >= 6 && cloudPercent <= 25) {
-                    return 'Sunny / Mostly Clear'
+            let tomorrowCoolerWarmer = function () {
+                if (tomorrowHi < currentDailyHi) {
+                    return 'Tomorrow will be  ' + '<span class="mx-1 tomorrowCooler"> cooler </span> ' + ' than today at this time.';
+                } else if (tomorrowHi === currentDailyHi) {
+                    return 'Tomorrow will be  ' + '<span class="mx-1 tomorrowSame"> about the same </span> ' + ' as today at this time.';
                 } else {
-                    return 'Sunny / Clear'
+                    return 'Tomorrow will be  ' + '<span class="mx-1 tomorrowWarmer">' + ' warmer ' +  '</span> ' + ' than today at this time.';
                 }
             }
 
-                $('#weatherdata').html("");
-                $('#weatherdata').append('<div class="container-fluid">'
+            let directionArrow = '<div class="col text-center" id="arrowDiv"><i class="fas fa-location-arrow border rounded-circle aspectRatioSm arrow"></i></div>';
+            let windDirection = data.current.wind_deg;
+            const directionDeg = {
+                    N: 0,
+                    NNE: 22.5,
+                    NE: 45,
+                    ENE: 67.6,
+                    E: 90,
+                    ESE: 112.5,
+                    SE: 135,
+                    SSE: 157.5,
+                    S:  180,
+                    SSW: 202.5,
+                    SW: 225,
+                    WSW: 247.5,
+                    W:  270,
+                    WNW: 292.5,
+                    NW: 315,
+                    NNW: 337.5
+                }
+                let getWindDirection = function() {
+                if (windDirection > directionDeg.NNW || windDirection < directionDeg.NNE) {
+                    return "N";
+                } else if (windDirection > directionDeg.N && windDirection < directionDeg.NE) {
+                    return "NNE";
+                } else if (windDirection > directionDeg.NNE && windDirection < directionDeg.ENE) {
+                    return "NE";
+                } else if (windDirection > directionDeg.NE && windDirection < directionDeg.E) {
+                    return "ENE";
+                } else if (windDirection > directionDeg.ENE && windDirection < directionDeg.ESE) {
+                    return "E";
+                } else if (windDirection > directionDeg.E && windDirection < directionDeg.SE) {
+                    return "ESE";
+                } else if (windDirection > directionDeg.ESE && windDirection < directionDeg.SSE) {
+                    return "SE";
+                } else if (windDirection > directionDeg.SE && windDirection < directionDeg.S) {
+                    return "SSE";
+                } else if (windDirection > directionDeg.SSE && windDirection < directionDeg.SSW) {
+                    return "S";
+                } else if (windDirection > directionDeg.S && windDirection < directionDeg.SW)  {
+                    return "SSW";
+                } else if (windDirection > directionDeg.SSW && windDirection < directionDeg.WSW) {
+                    return "SW";
+                } else if (windDirection > directionDeg.SW && windDirection < directionDeg.W) {
+                    return "WSW";
+                } else if (windDirection > directionDeg.WSW && windDirection < directionDeg.WNW) {
+                    return "W";
+                } else if (windDirection > directionDeg.W && windDirection < directionDeg.NW) {
+                    return "WNW";
+                } else if (windDirection > directionDeg.WNW && windDirection < directionDeg.NNW) {
+                    return "NW";
+                } else if (windDirection > directionDeg.NW && windDirection < directionDeg.N) {
+                    return "NNW";
+                } else {
+                    return false;
+                }
+            }
+            let directionKeys = Object.keys(directionDeg);
+            let windDir = getWindDirection();
+            let indicator;
+            let arrowDirection = function(){
+                directionKeys.forEach(function(){
+                    if (windDir === 'N') {
+                        .addClass('');
+                    } else if (windDirection > directionDeg.N && windDirection < directionDeg.NE) {
+                        return "NNE";
+                    } else if (windDirection > directionDeg.NNE && windDirection < directionDeg.ENE) {
+                        return "NE";
+                    } else if (windDirection > directionDeg.NE && windDirection < directionDeg.E) {
+                        return "ENE";
+                    } else if (windDirection > directionDeg.ENE && windDirection < directionDeg.ESE) {
+                        return "E";
+                    } else if (windDirection > directionDeg.E && windDirection < directionDeg.SE) {
+                        return "ESE";
+                    } else if (windDirection > directionDeg.ESE && windDirection < directionDeg.SSE) {
+                        return "SE";
+                    } else if (windDirection > directionDeg.SE && windDirection < directionDeg.S) {
+                        return "SSE";
+                    } else if (windDirection > directionDeg.SSE && windDirection < directionDeg.SSW) {
+                        return "S";
+                    } else if (windDirection > directionDeg.S && windDirection < directionDeg.SW)  {
+                        return "SSW";
+                    } else if (windDirection > directionDeg.SSW && windDirection < directionDeg.WSW) {
+                        return "SW";
+                    } else if (windDirection > directionDeg.SW && windDirection < directionDeg.W) {
+                        return "WSW";
+                    } else if (windDirection > directionDeg.WSW && windDirection < directionDeg.WNW) {
+                        return "W";
+                    } else if (windDirection > directionDeg.W && windDirection < directionDeg.NW) {
+                        return "WNW";
+                    } else if (windDirection > directionDeg.WNW && windDirection < directionDeg.NNW) {
+                        return "NW";
+                    } else if (windDirection > directionDeg.NW && windDirection < directionDeg.N) {
+                        return "NNW";
+                    } else {
+                        return false;
+                    }
+                });
+                return indicator;
+            }
+            let arrowClassArr = ['arrowN','arrowNNE']
+            let setArrowDir = function(){
+                if (arrowDirection === )
+                    arrowDiv
+            }
+            console.log(getWindDirection());
+            console.log(arrowDirection());
 
-                + '<div class="row">'
-                + '<div class="card" style="width: 40%;">'
-                + '<div>' + currentWeekday() + ' ' + timeConverter(currentUTC) + '</div>'
-                + '<div class="row">'
+            $('#weatherdata').html("");
+                $('#weatherdata').append(
+                    '<div class="container-fluid">'
 
-                + '<div class="col-8 p-0 border border-warning rounded-circle text-center">'
-                    + '<div class="col p-0">'
-                    + '<div class="row mt-3">' + '<div class="col">' + currentDailyHigh + '<span>&deg;</span>' + '<span class="divider"> | </span>' + currentDailyLow + '<span>&deg;</span>' + '</div>' + '</div>'
-                    + '<div class="row">' + '<div class="col currentTemp">' +  Math.max(Math.round(data.current.temp * 10) / 10, 2.8).toFixed(1) + '<span class="normalSize">&deg;F</span>' + '</div>' + '</div>'
-                    + '<div class="row">' + 'BE FEELIN\' LIKE ' + Math.max(Math.round(data.current.feels_like * 10) / 10, 2.8).toFixed(1) + '<span>&deg;</span>' + '</div>'
-                + '</div>'//col with temps rounded circle
-                + '</div>'//col-8
+                        + '<div class="row">'
+                            + '<div class="col border">'
+                                + '<div class="col mb-5 text-center">' + currentWeekday() + ' ' + timeConverter(currentUTC) + '</div>'
+                                + '<div class="row">'
+                                    + '<div class="col-8">'
+                                        + '<div class="border border-danger rounded-circle text-center aspectRatioLg">'
+                                        + '<div class="row">'
+                                            + '<div class="col mt-5">' + currentDailyHi + '<span>&deg;</span>' + '<span class="divider"> | </span>' + currentDailyLo + '<span>&deg;</span>' + '</div>'
+                                        + '</div>'
+                                        + '<div class="row">'
+                                            + '<div class="col currentTemp">' +  Math.max(Math.round(data.current.temp * 10) / 10, 2.8).toFixed(1) + '<span class="mb-3 normalSize">&deg;F</span>' + '</div>'
+                                        + '</div>'
+                                        + '<div class="row">'
+                                            + '<div class="col mb-5">' + 'Feels Like ' + Math.max(Math.round(data.current.feels_like * 10) / 10, 2.8).toFixed(1) + '<span>&deg;</span>' + '</div>'
+                                        + '</div>'
+                                    + '</div>'
+                                    + '</div>'//col-8 rounded circle
 
-                + '<div class="col-4">'
-                    + '<div class="row">'
-                    + '<div>' + '<img src="http://openweathermap.org/img/w/' + data.current.weather[0].icon + '.png">' + '</div>'
-                    + '</div>' + cloudiness() + '<div class="row">' + 'wind compass' + '<div class="row">' + 'Gusts 7 mph' +  '</div>' + '<div class="row">' + '</div>' + '</div>'
-                + '</div>'//col-3
+                                    + '<div class="col-4">'
+                                        + '<div class="row">'
+                                            + '<div class="col">' + '<img src="http://openweathermap.org/img/w/' + data.current.weather[0].icon + '.png">' + '</div>'
+                                        + '</div>'
+
+                                        + '<div class="row">' + directionArrow
+                                        + '</div>'
+                                        + '<div class="row">' + 'Wind blowing ' + getWindDirection() + ' at ' + Math.round(data.current.wind_speed) + ' mph.'
+                                        + '</div>'
+                                    + '</div>'//col-4
                 + '</div>' //row below date/time
-                + '<div class="row">' + "Tomorrow's temperature is forecast to be " + coolerWarmer() + " than today." + '</div>'
+                    + '<div class="col mt-5 mb-1">'
+                    + '<div class="row" id="tempCompare">' + yesterdayCoolerWarmer() + '</div>'
+                + '<div class="row" id="tempCompare">' + tomorrowCoolerWarmer() + '</div>'
+                    + '</div>' //comparison col
                 + '</div>' //circle temp card
 
-                + '<div class="card" style="width: 18rem;">'
+                + '<div class="col border">'
                 + '<div>' + 'map' + '</div>'
                 + '<div>' + '<span>' + '</span>' + '</div>'
                 + '</div>' //map card
@@ -109,10 +217,10 @@
                 + '<div class="row flex-nowrap mt-3" id="forecastdata">' + '</div>'
                 );
 
-                data.daily.forEach(function(ahora, index){
+                data.daily.forEach(function(days, index){
                     //forecast date
-                    let forecastUTC = data.daily[index].dt;
-                    let forecastDT = data.daily[index];
+                    let forecastUTC = days.dt;
+                    let forecastDT = days;
                     var forecastWeekdayNum = (Math.floor(forecastUTC / 86400) + 4) % 7;
                     var forecastWeekday = function(){
                         let daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
@@ -157,10 +265,10 @@
                     $('#forecastdata').append('<div class="card mx-1 bg-secondary" style="width: 18rem;">'
                         + '<div>' + forecastWeekday() + ' ' + forecastDate(forecastUTC) + '</div>'
                         + '<div class="row">'
-                        + '<div class="col-4">' + '<img src="http://openweathermap.org/img/w/' + data.daily[index].weather[0].icon + '.png">' + '</div>'
+                        + '<div class="col-4">' + '<img src="http://openweathermap.org/img/w/' + days.weather[0].icon + '.png">' + '</div>'
                         + '<div class="col-8">'
-                        + '<div>' + 'Hi ' + Math.max(Math.round(data.daily[index].temp.max * 10) / 10, 2.8).toFixed(1) + '</div>'
-                        + '<div>' + 'Lo ' + Math.max(Math.round(data.daily[index].temp.min * 10) / 10,2.8).toFixed(1) + '</div>'
+                        + '<div>' + 'Hi ' + Math.max(Math.round(days.temp.max * 10) / 10, 2.8).toFixed(1) + '</div>'
+                        + '<div>' + 'Lo ' + Math.max(Math.round(days.temp.min * 10) / 10,2.8).toFixed(1) + '</div>'
                         + '</div>' //temp hi/lo group
                         + '</div>' //temp and conditions
                         + '<div>' + 'Sunrise: ' + forecastSunrise() + '</div>'
@@ -174,10 +282,10 @@
                     $('#forecastdata').append('<div class="card mx-1 bg-light" style="width: 18rem;">'
                         + '<div>' + forecastWeekday() + ' ' + forecastDate(forecastUTC) + '</div>'
                         + '<div class="row">'
-                        + '<div class="col-4">' + '<img src="http://openweathermap.org/img/w/' + data.daily[index].weather[0].icon + '.png">' + '</div>'
+                        + '<div class="col-4">' + '<img src="http://openweathermap.org/img/w/' + days.weather[0].icon + '.png">' + '</div>'
                         + '<div class="col-8">'
-                        + '<div>' + 'Hi ' + Math.max(Math.round(data.daily[index].temp.max * 10) / 10, 2.8).toFixed(1) + '</div>'
-                        + '<div>' + 'Lo ' + Math.max(Math.round(data.daily[index].temp.min * 10) / 10,2.8).toFixed(1) + '</div>'
+                        + '<div>' + 'Hi ' + Math.max(Math.round(days.temp.max * 10) / 10, 2.8).toFixed(1) + '</div>'
+                        + '<div>' + 'Lo ' + Math.max(Math.round(days.temp.min * 10) / 10,2.8).toFixed(1) + '</div>'
                         + '</div>' //temp hi/lo group
                         + '</div>' //temp and conditions
                         + '<div>' + 'Sunrise: ' + forecastSunrise() + '</div>'
@@ -188,32 +296,40 @@
                         + '<div>' + '<span>' + '</span>' + '</div>'
                     );
                 };
-
                 /** TEMPlATE
                 + '<div class="row">'
                 + '<div>' + '<span>' + '</span>' + '</div>'
                 + '<div>' + '<span>' + '</span>' + '</div>'
                 + '</div>'
                  */
+                
+            });
 
-                console.log(data.daily[index]);
+            var yesterday = parseInt(data.daily[0].dt) - (60*60*24);
+            var yesterdayHi;
+            $.get('https://api.openweathermap.org/data/2.5/onecall/timemachine', {
+                APPID: OPEN_WEATHER_APPID,
+                dt: yesterday,
+                lat: 29.42,
+                lon: -98.49,
+                units: 'imperial',
+            }).done(function(olddata) {
+                var yesterdayHi = 0;
+                var yesterdayLo = 0;
+                olddata.hourly.forEach(function(ahora){
+                    if (ahora.temp > yesterdayHi) {
+                        yesterdayHi = ahora.temp;
+                    }
+                    console.log(yesterdayHi);
+                    if (ahora.temp < yesterdayLo) {
+                        yesterdayLo = ahora.temp;
+                    }
+                });
+                console.log(olddata);
             });
             console.log(data);
-
-            /**
-             //date
-
-             //hi degrees f/lo degrees f
-             //forecast icon
-
-             data.weather.//description: overcast clouds
-             //humidity: 52
-
-             //wind: 6.78 speed direction directionicon
-
-             //pressure: 1012 */
-
         });
+
     });
 
     //get api data for map
