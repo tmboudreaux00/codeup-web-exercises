@@ -125,36 +125,36 @@
             let arrowDirection = function(){
                 directionKeys.forEach(function(){
                     if (windDir === 'N') {
-                        .addClass('');
-                    } else if (windDirection > directionDeg.N && windDirection < directionDeg.NE) {
+
+                    } else if (windDir === '') {
                         return "NNE";
-                    } else if (windDirection > directionDeg.NNE && windDirection < directionDeg.ENE) {
+                    } else if (windDir === '') {
                         return "NE";
-                    } else if (windDirection > directionDeg.NE && windDirection < directionDeg.E) {
+                    } else if (windDir === '') {
                         return "ENE";
-                    } else if (windDirection > directionDeg.ENE && windDirection < directionDeg.ESE) {
+                    } else if (windDir === '') {
                         return "E";
-                    } else if (windDirection > directionDeg.E && windDirection < directionDeg.SE) {
+                    } else if (windDir === '') {
                         return "ESE";
-                    } else if (windDirection > directionDeg.ESE && windDirection < directionDeg.SSE) {
+                    } else if (windDir === '') {
                         return "SE";
-                    } else if (windDirection > directionDeg.SE && windDirection < directionDeg.S) {
+                    } else if (windDir === 'SSE') {
                         return "SSE";
-                    } else if (windDirection > directionDeg.SSE && windDirection < directionDeg.SSW) {
-                        return "S";
-                    } else if (windDirection > directionDeg.S && windDirection < directionDeg.SW)  {
+                    } else if (windDir === 'S') {
+                        $('#arrowDiv').addClass('arrowS');
+                    } else if (windDir === '')  {
                         return "SSW";
-                    } else if (windDirection > directionDeg.SSW && windDirection < directionDeg.WSW) {
+                    } else if (windDir === '') {
                         return "SW";
-                    } else if (windDirection > directionDeg.SW && windDirection < directionDeg.W) {
+                    } else if (windDir === '') {
                         return "WSW";
-                    } else if (windDirection > directionDeg.WSW && windDirection < directionDeg.WNW) {
+                    } else if (windDir === '') {
                         return "W";
-                    } else if (windDirection > directionDeg.W && windDirection < directionDeg.NW) {
+                    } else if (windDir === '') {
                         return "WNW";
-                    } else if (windDirection > directionDeg.WNW && windDirection < directionDeg.NNW) {
+                    } else if (windDir === '') {
                         return "NW";
-                    } else if (windDirection > directionDeg.NW && windDirection < directionDeg.N) {
+                    } else if (windDir === '') {
                         return "NNW";
                     } else {
                         return false;
@@ -162,11 +162,7 @@
                 });
                 return indicator;
             }
-            let arrowClassArr = ['arrowN','arrowNNE']
-            let setArrowDir = function(){
-                if (arrowDirection === )
-                    arrowDiv
-            }
+
             console.log(getWindDirection());
             console.log(arrowDirection());
 
