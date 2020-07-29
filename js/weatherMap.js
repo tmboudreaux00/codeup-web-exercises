@@ -2,22 +2,29 @@
     "use strict";
 
     $(document).ready(function() {
-
+        var coordinates = $('coordinates');
         mapboxgl.accessToken = MAPBOX_KEY;
         var map = new mapboxgl.Map({
             container: 'mapBox',
             style: 'mapbox://styles/mapbox/streets-v11', // stylesheet location
             center: [-98.49, 29.42], // starting position [lng, lat]
-            zoom: 9 // starting zoom
+            zoom: 4 // starting zoom
         });
+        map.addControl(
+            new MapboxGeocoder({
+                accessToken: MAPBOX_KEY,
+                mapboxgl: mapboxgl
+            })
+        );
+        var marker = new mapboxgl.Marker({
+            draggable: true
+        })
+            .setLngLat([-98.49, 29.42])
+            .addTo(map);
 
 
     //get api data for weather report on button click
-    $('#submit').click(function(e){
-        e.preventDefault();
-        var inputLocation = $('#inputData').val();
-
-        console.log(inputLocation);
+    var ajaxRequest = function(lat, long) {
 
         $.get('http://api.openweathermap.org/data/2.5/onecall', {
             APPID: OPEN_WEATHER_APPID,
@@ -221,7 +228,7 @@
 
                 + '<div class="col-4">'
                 + '<div class="row">'
-                + '<div class="col text-center">' + '<img class="border border-dark rounded-lg weatherIconBG" src="http://openweathermap.org/img/wn/' + data.current.weather[0].icon + '@2x.png">' + '</div>'
+                + '<div class="col text-center">' + '<img class="border rounded-lg weatherIconBG" src="http://openweathermap.org/img/wn/' + data.current.weather[0].icon + '@2x.png">' + '</div>'
                 + '</div>'
                 + '<div class="row mb-3 justify-content-center windSize">' + data.current.weather[0].description + '</div>'
                 + '<div class="row">' + arrowDirection()
@@ -295,7 +302,7 @@
                     // 7 day forecast
                 if (index > 0 && index % 2 === 0) {
                     $('#forecastdata').append('<div class="card mx-1 forecastLightBG" style="width: 18rem;">'
-                        + '<div class="col text-center border-bottom border-dark cardHead">' + forecastWeekday() + ' ' + forecastDate(forecastUTC) + '</div>'
+                        + '<div class="col text-center border-bottom cardHead">' + forecastWeekday() + ' ' + forecastDate(forecastUTC) + '</div>'
                         + '<div class="row">'
                         + '<div class="col-4">' + '<img src="http://openweathermap.org/img/w/' + days.weather[0].icon + '.png">' + '</div>'
                         + '<div class="col-8">'
@@ -312,7 +319,7 @@
                     );
                 } else if (index > 0 && index % 2 !== 0) {
                     $('#forecastdata').append('<div class="card mx-1 forecastDarkBG" style="width: 18rem;">'
-                        + '<div class="col text-center border-bottom border-dark  cardHead">' + forecastWeekday() + ' ' + forecastDate(forecastUTC) + '</div>'
+                        + '<div class="col text-center border-bottom cardHead">' + forecastWeekday() + ' ' + forecastDate(forecastUTC) + '</div>'
                         + '<div class="row">'
                         + '<div class="col-4">' + '<img src="http://openweathermap.org/img/w/' + days.weather[0].icon + '.png">' + '</div>'
                         + '<div class="col-8">'
@@ -360,47 +367,18 @@
             });
             console.log(data);
         });
-        //map on results screen
+    };
+    var reverseGeocode (lat, long) {
 
-        //<div id='map' style='width: 400px; height: 300px;'></div>
-
-            // const center = "Webster, Texas 77598";
-            // const restaurants = [
-            //     {
-            //         name: "Mogul Indian Restaurant",
-            //         address: "1055 Bay Area Blvd, Houston, TX 77058",
-            //         long: '29.5377',
-            //         lat: '-95.1183',
-            //         info: "Delicious. What else?"
-            //     },
-            //     {
-            //         name: "Landry's Seafood House",
-            //         address: "Boardwalk #1, Kemah, TX 77565",
-            //         long: '29.5403',
-            //         lat: '-95.0177',
-            //         info: "Not really a favorite"
-            //     },
-            //     {
-            //         name: "Blue Bell",
-            //         address: "1101 S Blue Bell Rd, Brenham, TX ",
-            //         long: '30.1636',
-            //         lat: '-96.3777',
-            //         info: "Best. Ice Cream. Ever."
-            //     }
-            // ];
-            //
-            //
-            // restaurants.forEach(function (restaurant) {
-            //     var popupAll = new mapboxgl.Popup()
-            //         .setHTML('<h4>' + restaurant.name + '</h4>' + restaurant.info + "<br>" + restaurant.address);
-            //     var marker2 = new mapboxgl.Marker()
-            //         .setLngLat([restaurant.lat, restaurant.long])
-            //         .setPopup(popupAll)
-            //         .addTo(map);
-            // });
-
-    });
-
+        }
+    var onDragEnd = function() {
+        var lngLat = marker.getLngLat();
+        coordinates.style.display = 'block';
+        coordinates.innerHTML =
+            'Longitude: ' + lngLat.lng + '<br />Latitude: ' + lngLat.lat;
+        ajaxRequest(lngLat.lat, lngLat.lng)
+    }
+    marker.on('dragend', onDragEnd);
     }); //DOM Ready closing
 
 })(); //IFFE closing
