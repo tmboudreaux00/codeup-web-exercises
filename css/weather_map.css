@@ -2,19 +2,36 @@ body {
 
 }
 .aspectRatioLg {
+    background-color: whitesmoke;
     border: 5px;
     width: 218px;
 }
 .aspectRatioSm {
-    border-color: gray;
-    height: 30px;
-    width: 30px;
+    background-color: whitesmoke;
+    border: 1px solid black;
+    height: 90px;
+    width: 90px;
 }
 .currentTemp {
     font-size: 3em;
 }
+.forecastLightBG {
+    background-color: whitesmoke;
+}
+.forecastDarkBG {
+    background-color: #E6ECF0;
+}
+.weatherIconBG {
+    background-color: whitesmoke;
+}
 .normalSize {
     font-size: .25em;
+}
+.windSize {
+    font-size: .75em;
+}
+.cardHead {
+    background-color: #888888;
 }
 .tomorrowCooler {
     color: blue;
@@ -31,8 +48,11 @@ body {
     font-style: italic;
     font-weight: bold;
 }
+.currentBG {
+    background-color: #DDDDDD;
+}
 .arrow {
-    padding-top: 4%;
+    padding-top: 22.5%;
     color: red;
 }
 .arrowN {
@@ -83,6 +103,15 @@ body {
 .arrowNNW {
        transform: rotate(-67.5deg);
    }
+.initMapSize {
+    width:  60%;
+    height: 480px;
+}
+.mapSize {
+    width: 100%;
+    height: 100%;
+}
+
 
 
 

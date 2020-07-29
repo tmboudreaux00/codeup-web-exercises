@@ -1,9 +1,24 @@
 (function() {
     "use strict";
 
+    $(document).ready(function() {
+
+        mapboxgl.accessToken = MAPBOX_KEY;
+        var map = new mapboxgl.Map({
+            container: 'mapBox',
+            style: 'mapbox://styles/mapbox/streets-v11', // stylesheet location
+            center: [-98.49, 29.42], // starting position [lng, lat]
+            zoom: 9 // starting zoom
+        });
+
+
     //get api data for weather report on button click
     $('#submit').click(function(e){
         e.preventDefault();
+        var inputLocation = $('#inputData').val();
+
+        console.log(inputLocation);
+
         $.get('http://api.openweathermap.org/data/2.5/onecall', {
             APPID: OPEN_WEATHER_APPID,
             //confirm coordinates at latlong.net
@@ -14,23 +29,27 @@
         }).done(function(data) {
             //UNIX date/time stamps converter
             let currentUTC = data.current.dt;
-            var currentWeekday = function(){
+            var currentWeekday = function () {
                 let currentWeekdayNum = (Math.floor(currentUTC / 86400) + 4) % 7;
                 let daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
                 let day = daysOfWeek[currentWeekdayNum];
-                return(day);
+                return (day);
             };
             var hour;
-            let timeConverter = function(currentUTC){
+            let timeConverter = function (currentUTC) {
                 var a = new Date(currentUTC * 1000);
-                var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+                var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
                 var year = a.getFullYear();
                 var month = months[a.getMonth()];
                 var date = a.getDate();
                 hour = a.getHours();
+                var ampm = hour >= 12 ? 'PM' : 'AM';
+                hour = hour % 12;
+                hour = hour ? hour : 12;
                 var min = a.getMinutes() < 10 ? '0' + a.getMinutes() : a.getMinutes();
-                var time = month + ' ' + date + ' ' + year + ' ' + hour + ':' + min;
+                let time = month + ' ' + date + ', ' + year + ' ' + hour + ':' + min + ' ' + ampm;
                 return time;
+
             }
             timeConverter(currentUTC);
 
@@ -38,7 +57,7 @@
             let userLocation = "";
 
 
-           // + '<div>' + '<span>Current Temperature For </span>' + "San Antonio"/**data.name*/ + '</div>'
+            // + '<div>' + '<span>Current Temperature For </span>' + "San Antonio"/**data.name*/ + '</div>'
             var currentDailyHi = data.daily[0].temp.max;
             var currentDailyLo = data.daily[0].temp.min;
             var tomorrowHi = data.daily[1].temp.max;
@@ -49,7 +68,7 @@
                 } else if (yesterdayHi === currentDailyHi) {
                     return 'Yesterday was ' + '<span class="mx-1 tomorrowSame"> about the same </span> ' + ' as today at this time.';
                 } else {
-                    return 'Yesterday was ' + '<span class="mx-1 tomorrowWarmer">' + ' warmer ' +  '</span> ' + ' than today at this time.';
+                    return 'Yesterday was ' + '<span class="mx-1 tomorrowWarmer">' + ' warmer ' + '</span> ' + ' than today at this time.';
                 }
             }
             let tomorrowCoolerWarmer = function () {
@@ -58,31 +77,31 @@
                 } else if (tomorrowHi === currentDailyHi) {
                     return 'Tomorrow will be  ' + '<span class="mx-1 tomorrowSame"> about the same </span> ' + ' as today at this time.';
                 } else {
-                    return 'Tomorrow will be  ' + '<span class="mx-1 tomorrowWarmer">' + ' warmer ' +  '</span> ' + ' than today at this time.';
+                    return 'Tomorrow will be  ' + '<span class="mx-1 tomorrowWarmer">' + ' warmer ' + '</span> ' + ' than today at this time.';
                 }
             }
 
-            let directionArrow = '<div class="col text-center" id="arrowDiv"><i class="fas fa-location-arrow border rounded-circle aspectRatioSm arrow"></i></div>';
+
             let windDirection = data.current.wind_deg;
             const directionDeg = {
-                    N: 0,
-                    NNE: 22.5,
-                    NE: 45,
-                    ENE: 67.6,
-                    E: 90,
-                    ESE: 112.5,
-                    SE: 135,
-                    SSE: 157.5,
-                    S:  180,
-                    SSW: 202.5,
-                    SW: 225,
-                    WSW: 247.5,
-                    W:  270,
-                    WNW: 292.5,
-                    NW: 315,
-                    NNW: 337.5
-                }
-                let getWindDirection = function() {
+                N: 0,
+                NNE: 22.5,
+                NE: 45,
+                ENE: 67.6,
+                E: 90,
+                ESE: 112.5,
+                SE: 135,
+                SSE: 157.5,
+                S: 180,
+                SSW: 202.5,
+                SW: 225,
+                WSW: 247.5,
+                W: 270,
+                WNW: 292.5,
+                NW: 315,
+                NNW: 337.5
+            }
+            let getWindDirection = function () {
                 if (windDirection > directionDeg.NNW || windDirection < directionDeg.NNE) {
                     return "N";
                 } else if (windDirection > directionDeg.N && windDirection < directionDeg.NE) {
@@ -101,7 +120,7 @@
                     return "SSE";
                 } else if (windDirection > directionDeg.SSE && windDirection < directionDeg.SSW) {
                     return "S";
-                } else if (windDirection > directionDeg.S && windDirection < directionDeg.SW)  {
+                } else if (windDirection > directionDeg.S && windDirection < directionDeg.SW) {
                     return "SSW";
                 } else if (windDirection > directionDeg.SSW && windDirection < directionDeg.WSW) {
                     return "SW";
@@ -119,99 +138,116 @@
                     return false;
                 }
             }
+            let arrowStart = '<div class="col text-center';
+            let arrowEnd = '" id="arrowDiv"><i class="fas fa-location-arrow rounded-circle bg-light aspectRatioSm arrow"></i></div>';
             let directionKeys = Object.keys(directionDeg);
             let windDir = getWindDirection();
-            let indicator;
-            let arrowDirection = function(){
-                directionKeys.forEach(function(){
+            let arrowDirection = function () {
+                let dir;
+                directionKeys.forEach(function () {
                     if (windDir === 'N') {
-
-                    } else if (windDir === '') {
-                        return "NNE";
-                    } else if (windDir === '') {
-                        return "NE";
-                    } else if (windDir === '') {
-                        return "ENE";
-                    } else if (windDir === '') {
-                        return "E";
-                    } else if (windDir === '') {
-                        return "ESE";
-                    } else if (windDir === '') {
-                        return "SE";
+                        dir = arrowStart + ' arrowN' + arrowEnd;
+                    } else if (windDir === 'NNE') {
+                        dir = arrowStart + ' arrowNNE' + arrowEnd;
+                    } else if (windDir === 'NE') {
+                        dir = arrowStart + ' arrowNE' + arrowEnd;
+                    } else if (windDir === 'ENE') {
+                        dir = arrowStart + ' arrowENE' + arrowEnd;
+                    } else if (windDir === 'E') {
+                        dir = arrowStart + ' arrowE' + arrowEnd;
+                    } else if (windDir === 'ESE') {
+                        dir = arrowStart + ' arrowESE' + arrowEnd;
+                    } else if (windDir === 'SE') {
+                        dir = arrowStart + ' arrowSE' + arrowEnd;
                     } else if (windDir === 'SSE') {
-                        return "SSE";
+                        dir = arrowStart + ' arrowSSE' + arrowEnd;
                     } else if (windDir === 'S') {
-                        $('#arrowDiv').addClass('arrowS');
-                    } else if (windDir === '')  {
-                        return "SSW";
-                    } else if (windDir === '') {
-                        return "SW";
-                    } else if (windDir === '') {
-                        return "WSW";
-                    } else if (windDir === '') {
-                        return "W";
-                    } else if (windDir === '') {
-                        return "WNW";
-                    } else if (windDir === '') {
-                        return "NW";
-                    } else if (windDir === '') {
-                        return "NNW";
+                        dir = arrowStart + ' arrowS' + arrowEnd;
+                    } else if (windDir === 'SSW') {
+                        dir = arrowStart + ' arrowSSW' + arrowEnd;
+                    } else if (windDir === 'SW') {
+                        dir = arrowStart + ' arrowSW' + arrowEnd;
+                    } else if (windDir === 'WSW') {
+                        dir = arrowStart + ' arrowWSW' + arrowEnd;
+                    } else if (windDir === 'W') {
+                        dir = arrowStart + ' arrowW' + arrowEnd;
+                    } else if (windDir === 'WNW') {
+                        dir = arrowStart + ' arrowWNW' + arrowEnd;
+                    } else if (windDir === 'NW') {
+                        dir = arrowStart + ' arrowNW' + arrowEnd;
+                    } else if (windDir === 'NNW') {
+                        dir = arrowStart + ' arrowNNW' + arrowEnd;
                     } else {
                         return false;
                     }
                 });
-                return indicator;
+                return dir;
             }
 
-            console.log(getWindDirection());
-            console.log(arrowDirection());
+/** OPEN WEATHER MAP
 
+            var openWeatherMap = $.get('https://tile.openweathermap.org/map/', {
+                APPID: OPEN_WEATHER_APPID,
+                layer: 'clouds_new',
+                z: '10',
+                x: 29.42,
+                y: -98.49
+                //lang: "de"
+            }).done(function(map) {
+                console.log("success!");
+            });
+        */
             $('#weatherdata').html("");
-                $('#weatherdata').append(
-                    '<div class="container-fluid">'
+            $('#weatherdata').append(
+                '<div class="container-fluid mt-3">'
 
-                        + '<div class="row">'
-                            + '<div class="col border">'
-                                + '<div class="col mb-5 text-center">' + currentWeekday() + ' ' + timeConverter(currentUTC) + '</div>'
-                                + '<div class="row">'
-                                    + '<div class="col-8">'
-                                        + '<div class="border border-danger rounded-circle text-center aspectRatioLg">'
-                                        + '<div class="row">'
-                                            + '<div class="col mt-5">' + currentDailyHi + '<span>&deg;</span>' + '<span class="divider"> | </span>' + currentDailyLo + '<span>&deg;</span>' + '</div>'
-                                        + '</div>'
-                                        + '<div class="row">'
-                                            + '<div class="col currentTemp">' +  Math.max(Math.round(data.current.temp * 10) / 10, 2.8).toFixed(1) + '<span class="mb-3 normalSize">&deg;F</span>' + '</div>'
-                                        + '</div>'
-                                        + '<div class="row">'
-                                            + '<div class="col mb-5">' + 'Feels Like ' + Math.max(Math.round(data.current.feels_like * 10) / 10, 2.8).toFixed(1) + '<span>&deg;</span>' + '</div>'
-                                        + '</div>'
-                                    + '</div>'
-                                    + '</div>'//col-8 rounded circle
+                + '<div class="row">'
+                + '<div class="col border currentBG">'
+                + '<div class="col my-2 text-center">' + currentWeekday() + ' ' + timeConverter(currentUTC) + '</div>'
+                + '<div class="row">'
+                + '<div class="col-8 mt-3 d-flex justify-content-center text-center">'
+                + '<div class="border border-danger rounded-circle my-3 aspectRatioLg">'
+                + '<div class="row">'
+                + '<div class="col mt-5">' + Math.max(Math.round(currentDailyHi * 10) / 10, 2.8).toFixed(1) + '<span>&deg;</span>' + '<span class="divider"> | </span>' + Math.max(Math.round(currentDailyLo * 10) / 10, 2.8).toFixed(1) + '<span>&deg;</span>' + '</div>'
+                + '</div>'
+                + '<div class="row">'
+                + '<div class="col currentTemp">' + Math.max(Math.round(data.current.temp * 10) / 10, 2.8).toFixed(1) + '<span class="mb-3 normalSize">&deg;F</span>' + '</div>'
+                + '</div>'
+                + '<div class="row">'
+                + '<div class="col mb-5">' + 'Feels Like ' + Math.max(Math.round(data.current.feels_like * 10) / 10, 2.8).toFixed(1) + '<span>&deg;</span>' + '</div>'
+                + '</div>'
+                + '</div>'
+                + '</div>'//col-8 rounded circle
 
-                                    + '<div class="col-4">'
-                                        + '<div class="row">'
-                                            + '<div class="col">' + '<img src="http://openweathermap.org/img/w/' + data.current.weather[0].icon + '.png">' + '</div>'
-                                        + '</div>'
-
-                                        + '<div class="row">' + directionArrow
-                                        + '</div>'
-                                        + '<div class="row">' + 'Wind blowing ' + getWindDirection() + ' at ' + Math.round(data.current.wind_speed) + ' mph.'
-                                        + '</div>'
-                                    + '</div>'//col-4
+                + '<div class="col-4">'
+                + '<div class="row">'
+                + '<div class="col text-center">' + '<img class="border border-dark rounded-lg weatherIconBG" src="http://openweathermap.org/img/wn/' + data.current.weather[0].icon + '@2x.png">' + '</div>'
+                + '</div>'
+                + '<div class="row mb-3 justify-content-center windSize">' + data.current.weather[0].description + '</div>'
+                + '<div class="row">' + arrowDirection()
+                + '</div>'
+                + '<div class="row mt-3 justify-content-center windSize">' + 'Wind blowing ' + getWindDirection() + ' at ' + Math.round(data.current.wind_speed) + ' mph.'
+                + '</div>'
+                + '</div>'//col-4
                 + '</div>' //row below date/time
-                    + '<div class="col mt-5 mb-1">'
-                    + '<div class="row" id="tempCompare">' + yesterdayCoolerWarmer() + '</div>'
-                + '<div class="row" id="tempCompare">' + tomorrowCoolerWarmer() + '</div>'
-                    + '</div>' //comparison col
+                + '<div class="col mt-3 mb-1">'
+                + '<div class="row justify-content-center" id="tempCompare">' + yesterdayCoolerWarmer() + '</div>'
+                + '<div class="row justify-content-center" id="tempCompare">' + tomorrowCoolerWarmer() + '</div>'
+                + '</div>' //comparison col
                 + '</div>' //circle temp card
-
-                + '<div class="col border">'
-                + '<div>' + 'map' + '</div>'
-                + '<div>' + '<span>' + '</span>' + '</div>'
-                + '</div>' //map card
-                + '</div>' //row containing card
+    /** MAP */
+                + '<div class="col" id="mapDiv">' + '</div>'
+                + '</div>' //row containing card and map
                 + '<div class="row flex-nowrap mt-3" id="forecastdata">' + '</div>'
-                );
+            );
+
+            $('#mapDiv').append($('#mapBox'));
+            $('#mapBox').removeClass('initMapSize mx-auto').addClass('mapSize');
+            $('#mainContent').addClass('d-none');
+            map.resize();
+
+
+
 
                 data.daily.forEach(function(days, index){
                     //forecast date
@@ -258,34 +294,34 @@
 
                     // 7 day forecast
                 if (index > 0 && index % 2 === 0) {
-                    $('#forecastdata').append('<div class="card mx-1 bg-secondary" style="width: 18rem;">'
-                        + '<div>' + forecastWeekday() + ' ' + forecastDate(forecastUTC) + '</div>'
+                    $('#forecastdata').append('<div class="card mx-1 forecastLightBG" style="width: 18rem;">'
+                        + '<div class="col text-center border-bottom border-dark cardHead">' + forecastWeekday() + ' ' + forecastDate(forecastUTC) + '</div>'
                         + '<div class="row">'
                         + '<div class="col-4">' + '<img src="http://openweathermap.org/img/w/' + days.weather[0].icon + '.png">' + '</div>'
                         + '<div class="col-8">'
-                        + '<div>' + 'Hi ' + Math.max(Math.round(days.temp.max * 10) / 10, 2.8).toFixed(1) + '</div>'
-                        + '<div>' + 'Lo ' + Math.max(Math.round(days.temp.min * 10) / 10,2.8).toFixed(1) + '</div>'
+                        + '<div class="ml-4">' + 'Hi ' + Math.max(Math.round(days.temp.max * 10) / 10, 2.8).toFixed(1) + '</div>'
+                        + '<div class="ml-4">' + 'Lo ' + Math.max(Math.round(days.temp.min * 10) / 10,2.8).toFixed(1) + '</div>'
                         + '</div>' //temp hi/lo group
                         + '</div>' //temp and conditions
-                        + '<div>' + 'Sunrise: ' + forecastSunrise() + '</div>'
-                        + '<div>' + 'Sunset: ' + forecastSunset() + '</div>'
+                        + '<div class="pl-1">' + 'Sunrise: ' + forecastSunrise() + '</div>'
+                        + '<div class="pl-1">' + 'Sunset: ' + forecastSunset() + '</div>'
                         + '</div>' //forecast card
 
 
                         + '<div>' + '<span>' + '</span>' + '</div>'
                     );
                 } else if (index > 0 && index % 2 !== 0) {
-                    $('#forecastdata').append('<div class="card mx-1 bg-light" style="width: 18rem;">'
-                        + '<div>' + forecastWeekday() + ' ' + forecastDate(forecastUTC) + '</div>'
+                    $('#forecastdata').append('<div class="card mx-1 forecastDarkBG" style="width: 18rem;">'
+                        + '<div class="col text-center border-bottom border-dark  cardHead">' + forecastWeekday() + ' ' + forecastDate(forecastUTC) + '</div>'
                         + '<div class="row">'
                         + '<div class="col-4">' + '<img src="http://openweathermap.org/img/w/' + days.weather[0].icon + '.png">' + '</div>'
                         + '<div class="col-8">'
-                        + '<div>' + 'Hi ' + Math.max(Math.round(days.temp.max * 10) / 10, 2.8).toFixed(1) + '</div>'
-                        + '<div>' + 'Lo ' + Math.max(Math.round(days.temp.min * 10) / 10,2.8).toFixed(1) + '</div>'
+                        + '<div class="ml-4">' + 'Hi ' + Math.max(Math.round(days.temp.max * 10) / 10, 2.8).toFixed(1) + '</div>'
+                        + '<div class="ml-4">' + 'Lo ' + Math.max(Math.round(days.temp.min * 10) / 10,2.8).toFixed(1) + '</div>'
                         + '</div>' //temp hi/lo group
                         + '</div>' //temp and conditions
-                        + '<div>' + 'Sunrise: ' + forecastSunrise() + '</div>'
-                        + '<div>' + 'Sunset: ' + forecastSunset() + '</div>'
+                        + '<div class="pl-1">' + 'Sunrise: ' + forecastSunrise() + '</div>'
+                        + '<div class="pl-1">' + 'Sunset: ' + forecastSunset() + '</div>'
                         + '</div>' //forecast card
 
 
@@ -316,7 +352,6 @@
                     if (ahora.temp > yesterdayHi) {
                         yesterdayHi = ahora.temp;
                     }
-                    console.log(yesterdayHi);
                     if (ahora.temp < yesterdayLo) {
                         yesterdayLo = ahora.temp;
                     }
@@ -325,10 +360,47 @@
             });
             console.log(data);
         });
+        //map on results screen
+
+        //<div id='map' style='width: 400px; height: 300px;'></div>
+
+            // const center = "Webster, Texas 77598";
+            // const restaurants = [
+            //     {
+            //         name: "Mogul Indian Restaurant",
+            //         address: "1055 Bay Area Blvd, Houston, TX 77058",
+            //         long: '29.5377',
+            //         lat: '-95.1183',
+            //         info: "Delicious. What else?"
+            //     },
+            //     {
+            //         name: "Landry's Seafood House",
+            //         address: "Boardwalk #1, Kemah, TX 77565",
+            //         long: '29.5403',
+            //         lat: '-95.0177',
+            //         info: "Not really a favorite"
+            //     },
+            //     {
+            //         name: "Blue Bell",
+            //         address: "1101 S Blue Bell Rd, Brenham, TX ",
+            //         long: '30.1636',
+            //         lat: '-96.3777',
+            //         info: "Best. Ice Cream. Ever."
+            //     }
+            // ];
+            //
+            //
+            // restaurants.forEach(function (restaurant) {
+            //     var popupAll = new mapboxgl.Popup()
+            //         .setHTML('<h4>' + restaurant.name + '</h4>' + restaurant.info + "<br>" + restaurant.address);
+            //     var marker2 = new mapboxgl.Marker()
+            //         .setLngLat([restaurant.lat, restaurant.long])
+            //         .setPopup(popupAll)
+            //         .addTo(map);
+            // });
 
     });
 
-    //get api data for map
+    }); //DOM Ready closing
 
-//IFFE closing
-})();
+})(); //IFFE closing
