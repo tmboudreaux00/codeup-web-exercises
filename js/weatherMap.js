@@ -1,37 +1,90 @@
 (function() {
     "use strict";
-
-    $(document).ready(function() {
-        var coordinates = $('coordinates');
-        mapboxgl.accessToken = MAPBOX_KEY;
+    var coordinates = $('#coordinates');
+    var lat = 21;
+    var long = -80;
+    mapboxgl.accessToken = MAPBOX_KEY;
         var map = new mapboxgl.Map({
             container: 'mapBox',
             style: 'mapbox://styles/mapbox/streets-v11', // stylesheet location
-            center: [-98.49, 29.42], // starting position [lng, lat]
-            zoom: 4 // starting zoom
+            center: [-98.58, 39.83], // starting position [lng, lat]
+            zoom: 3 // starting zoom
         });
-        map.addControl(
+    var coordinatesGeocoder = function(query) {
+
+// match anything which looks like a decimal degrees coordinate pair
+        var matches = query.match(
+            /^[ ]*(?:Lat: )?(-?\d+\.?\d*)[, ]+(?:Lng: )?(-?\d+\.?\d*)[ ]*$/i
+        );
+        if (!matches) {
+            return null;
+        }
+        console.log(query);
+        function coordinateFeature(lng, lat) {
+            return {
+                center: [lng, lat],
+                geometry: {
+                    type: 'Point',
+                    coordinates: [lng, lat]
+                },
+                place_name: 'Lat: ' + lat + ' Lng: ' + lng,
+                place_type: ['coordinate'],
+                properties: {},
+                type: 'Feature'
+            };
+        }
+
+        var coord1 = Number(matches[1]);
+        var coord2 = Number(matches[2]);
+        var geocodes = [];
+
+        if (coord1 < -90 || coord1 > 90) {
+// must be lng, lat
+            geocodes.push(coordinateFeature(coord1, coord2));
+        }
+
+        if (coord2 < -90 || coord2 > 90) {
+// must be lat, lng
+            geocodes.push(coordinateFeature(coord2, coord1));
+        }
+
+        if (geocodes.length === 0) {
+// else could be either lng, lat or lat, lng
+            geocodes.push(coordinateFeature(coord1, coord2));
+            geocodes.push(coordinateFeature(coord2, coord1));
+        }
+        return geocodes;
+    };
+    var forwardCoord = function(query){
+        console.log(query);
+    }
+    console.log(forwardCoord());
+    var geoLoc = map.addControl(
             new MapboxGeocoder({
                 accessToken: MAPBOX_KEY,
+                localGeocoder: coordinatesGeocoder,
+                zoom: 3,
+                placeholder: 'Ex: "-40, 170 or Seattle, WA"',
                 mapboxgl: mapboxgl
-            })
+            }),
+            'top-left'
         );
+    /** DRAGGABLE MARKER
         var marker = new mapboxgl.Marker({
             draggable: true
         })
             .setLngLat([-98.49, 29.42])
             .addTo(map);
+*/
 
-
-    //get api data for weather report on button click
+    //get api data for weather report
     var ajaxRequest = function(lat, long) {
-
         $.get('http://api.openweathermap.org/data/2.5/onecall', {
             APPID: OPEN_WEATHER_APPID,
-            //confirm coordinates at latlong.net
-            lat: 29.42,
-            lon: -98.49,
+            lat: lat,
+            lon: long,
             units: 'imperial',
+            part: 'daily'
             //lang: "de"
         }).done(function(data) {
             //UNIX date/time stamps converter
@@ -59,7 +112,6 @@
 
             }
             timeConverter(currentUTC);
-
             //location converter
             let userLocation = "";
 
@@ -191,29 +243,16 @@
                 return dir;
             }
 
-/** OPEN WEATHER MAP
-
-            var openWeatherMap = $.get('https://tile.openweathermap.org/map/', {
-                APPID: OPEN_WEATHER_APPID,
-                layer: 'clouds_new',
-                z: '10',
-                x: 29.42,
-                y: -98.49
-                //lang: "de"
-            }).done(function(map) {
-                console.log("success!");
-            });
-        */
             $('#weatherdata').html("");
             $('#weatherdata').append(
-                '<div class="container-fluid mt-3">'
-
+                '<div class="container mt-5">'
+                + '<div class="row justify-content-center mx-auto bg-dark text-light w-75">' + currentWeekday() + ' ' + timeConverter(currentUTC) + '</div>'
                 + '<div class="row">'
                 + '<div class="col border currentBG">'
-                + '<div class="col my-2 text-center">' + currentWeekday() + ' ' + timeConverter(currentUTC) + '</div>'
-                + '<div class="row">'
+
+                + '<div class="row align-items-center">'
                 + '<div class="col-8 mt-3 d-flex justify-content-center text-center">'
-                + '<div class="border border-danger rounded-circle my-3 aspectRatioLg">'
+                + '<div class="border border-danger rounded-circle my-3 px-5 aspectRatioLg">'
                 + '<div class="row">'
                 + '<div class="col mt-5">' + Math.max(Math.round(currentDailyHi * 10) / 10, 2.8).toFixed(1) + '<span>&deg;</span>' + '<span class="divider"> | </span>' + Math.max(Math.round(currentDailyLo * 10) / 10, 2.8).toFixed(1) + '<span>&deg;</span>' + '</div>'
                 + '</div>'
@@ -226,11 +265,11 @@
                 + '</div>'
                 + '</div>'//col-8 rounded circle
 
-                + '<div class="col-4">'
+                + '<div class="col-4 forecastDarkBG border border-light">'
                 + '<div class="row">'
-                + '<div class="col text-center">' + '<img class="border rounded-lg weatherIconBG" src="http://openweathermap.org/img/wn/' + data.current.weather[0].icon + '@2x.png">' + '</div>'
+                + '<div class="col text-center mt-1">' + '<img class="border forecastLightBG" src="http://openweathermap.org/img/w/' + data.current.weather[0].icon + '.png">' + '</div>'
                 + '</div>'
-                + '<div class="row mb-3 justify-content-center windSize">' + data.current.weather[0].description + '</div>'
+                + '<div class="row mb-3 mt-1 justify-content-center windSize">' + data.current.weather[0].description + '</div>'
                 + '<div class="row">' + arrowDirection()
                 + '</div>'
                 + '<div class="row mt-3 justify-content-center windSize">' + 'Wind blowing ' + getWindDirection() + ' at ' + Math.round(data.current.wind_speed) + ' mph.'
@@ -243,13 +282,13 @@
                 + '</div>' //comparison col
                 + '</div>' //circle temp card
     /** MAP */
-                + '<div class="col" id="mapDiv">' + '</div>'
+                + '<div class="col p-0" id="mapDiv">' + '</div>'
                 + '</div>' //row containing card and map
                 + '<div class="row flex-nowrap mt-3" id="forecastdata">' + '</div>'
             );
 
             $('#mapDiv').append($('#mapBox'));
-            $('#mapBox').removeClass('initMapSize mx-auto').addClass('mapSize');
+            $('#mapBox').removeClass('initMapSize mx-auto d-none').addClass('mapSize');
             $('#mainContent').addClass('d-none');
             map.resize();
 
@@ -301,7 +340,7 @@
 
                     // 7 day forecast
                 if (index > 0 && index % 2 === 0) {
-                    $('#forecastdata').append('<div class="card mx-1 forecastLightBG" style="width: 18rem;">'
+                    $('#forecastdata').append('<div class="card forecastLightBG" style="width: 18rem;">'
                         + '<div class="col text-center border-bottom cardHead">' + forecastWeekday() + ' ' + forecastDate(forecastUTC) + '</div>'
                         + '<div class="row">'
                         + '<div class="col-4">' + '<img src="http://openweathermap.org/img/w/' + days.weather[0].icon + '.png">' + '</div>'
@@ -318,7 +357,7 @@
                         + '<div>' + '<span>' + '</span>' + '</div>'
                     );
                 } else if (index > 0 && index % 2 !== 0) {
-                    $('#forecastdata').append('<div class="card mx-1 forecastDarkBG" style="width: 18rem;">'
+                    $('#forecastdata').append('<div class="card forecastDarkBG" style="width: 18rem;">'
                         + '<div class="col text-center border-bottom cardHead">' + forecastWeekday() + ' ' + forecastDate(forecastUTC) + '</div>'
                         + '<div class="row">'
                         + '<div class="col-4">' + '<img src="http://openweathermap.org/img/w/' + days.weather[0].icon + '.png">' + '</div>'
@@ -330,9 +369,6 @@
                         + '<div class="pl-1">' + 'Sunrise: ' + forecastSunrise() + '</div>'
                         + '<div class="pl-1">' + 'Sunset: ' + forecastSunset() + '</div>'
                         + '</div>' //forecast card
-
-
-                        + '<div>' + '<span>' + '</span>' + '</div>'
                     );
                 };
                 /** TEMPlATE
@@ -349,8 +385,8 @@
             $.get('https://api.openweathermap.org/data/2.5/onecall/timemachine', {
                 APPID: OPEN_WEATHER_APPID,
                 dt: yesterday,
-                lat: 29.42,
-                lon: -98.49,
+                lat: lat,
+                lon: long,
                 units: 'imperial',
             }).done(function(olddata) {
                 var yesterdayHi = 0;
@@ -365,12 +401,37 @@
                 });
                 console.log(olddata);
             });
+            reverseGeocode(lat, long)
             console.log(data);
         });
-    };
-    var reverseGeocode (lat, long) {
+        };
 
-        }
+    ajaxRequest(lat,long)
+
+    var forwardGeocode = function (lat, long) {
+        $.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/$(long),$(lat).json`, {
+            access_token: MAPBOX_KEY,
+            lat: lat,
+            lng: long,
+            types: 'place'
+        }).done(function(data){
+            console.log(data);
+        })
+    }
+    forwardGeocode();
+
+    var reverseGeocode = function (lat, long) {
+        $.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${long},${lat}.json`, {
+            access_token: MAPBOX_KEY,
+            types: 'place'
+        }).done(function(data){
+            $('#selectedlocation').html("");
+            $('#selectedlocation').append(data.features[0].place_name)
+            console.log(data);
+        });
+    }
+
+    /**
     var onDragEnd = function() {
         var lngLat = marker.getLngLat();
         coordinates.style.display = 'block';
@@ -379,6 +440,7 @@
         ajaxRequest(lngLat.lat, lngLat.lng)
     }
     marker.on('dragend', onDragEnd);
-    }); //DOM Ready closing
+     */
+
 
 })(); //IFFE closing

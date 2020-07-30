@@ -6,7 +6,8 @@ localtest*.html
 js-1.html
 js/js-1.js
 table_of_contents.html
-
+wm.html
+wm.js
 #IMPORTANT - DO NOT CHANGE
 .idea/*
 *.iml
