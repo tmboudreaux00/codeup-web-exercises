@@ -41,10 +41,10 @@
     //     Use .filter to create an array of user objects where each user object has at least 3 languages in the languages array
     var languages = users.filter(lang => {
         if (lang.languages.length >= 3) {
-            return `${languages}`;
+            return lang.id;
         }
     });
-
+    console.log(languages);
     //     Use .map to create an array of strings where each element is a user's email address
     var emails = users.map(email => email.email);
 
@@ -79,6 +79,16 @@
         return lang;
     }, []);
 
-    console.log(uniqueLang);
-
+    const dataStuff = $('#dataStuff');
+    const liopen = '<li>';
+    const liclose = '</li>';
+    $(dataStuff).html("");
+    $(dataStuff).append(liopen + languages + liclose
+        + liopen + emails + liclose
+        + liopen + totalXP + liclose
+        + liopen + averageXP + liclose
+        + liopen + longestEmail + liclose
+        + liopen + namesString + liclose
+        + liopen + uniqueLang + liclose
+    );
 })();

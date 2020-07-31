@@ -1,6 +1,48 @@
 // For morning-warmups.html
 "use strict"
 
+var hamsters = [
+    {
+        name: "Hamtaro",
+        heightInMM: 86,
+        fur: ['orange', 'white'],
+        gender: "male",
+        dateOfBirth: "August 6"
+    } , {
+        name: "Bijou",
+        heightInMM: 75,
+        fur: ['white'],
+        gender: "female",
+        dateOfBirth: "July 10"
+    } , {
+        name: "Oxnard",
+        heightInMM: 100,
+        fur: ['grey', 'white'],
+        gender: "male",
+        dateOfBirth: "May 3"
+    } , {
+        name: "Boss",
+        heightInMM: 120,
+        fur: ['brown', 'white'],
+        gender: "male",
+        dateOfBirth: "Spetember 21"
+    } , {
+        name: "Snoozer",
+        heightInMM: 85,
+        fur: ['brown', 'white', "pink"],
+        gender: "male",
+        dateOfBirth: "January 14"
+    }
+];
+
+var tallestHamster = hamsters.reduce((height, rodent) => {
+    if (rodent.heightInMM > height.heightInMM)
+        return rodent;
+    else
+        return height;
+}, {heightInMM: 0});
+console.log(tallestHamster);
+
 let fizzBuzz = function(num) {
 
     if (typeof num !== 'number') {
