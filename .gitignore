@@ -14,4 +14,7 @@ wm.js
 .DS_STORE
 js/keys.js
 keys.js
+node_modules/*
+public/main.js
+*.map
 

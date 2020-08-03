@@ -4,7 +4,6 @@ body {
 }
 .aspectRatioLg {
     background-color: whitesmoke;
-    border: 5px solid inherit;
     height: 200px;
     width: 200px;
 }
@@ -22,7 +21,7 @@ body {
     background-color: #E6ECF0;
 }
 .normalSize {
-    font-size: .25em;
+    font-size: .4em;
 }
 .windSize {
     font-size: .75em;
