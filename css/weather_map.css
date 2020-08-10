@@ -121,6 +121,10 @@ body {
     width: 150px;
     display: none;
 }
+/* For collapse arrows*/
+.activeArrow, .collapsible:hover {
+    background-color: #555;
+}
 
 
 

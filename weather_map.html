@@ -22,7 +22,7 @@
     <div class="col text-light"><!-- DT-->
         <span id="currentDay"></span><span id="currentTime"></span>
     </div>
-    <div class="col ml-auto pr-0 text-right text-light" id="selectedlocation">City, ST</div>
+    <div class="col ml-auto pr-0 text-right text-light" id="selectedlocation"></div>
 </nav>
 <div class="row ml-auto mr-2 coordinates" id="coordinates"></div>
 <!-- COORDINATES BOX *** BELOW CITY NAME, OUTSIDE OF NAVBAR-->
@@ -40,7 +40,7 @@
 
 <main>
     <div class="container-fluid">
-        <div class="row my-5"> <!-- ROW CONTAINS CURRENT WEATHER DATA AND WEATHER MAP -->
+        <div class="row mx-auto my-5"> <!-- ROW CONTAINS CURRENT WEATHER DATA AND WEATHER MAP -->
             <div class="col">
                 <div class="row h-100">
                     <div class="col-8 border border-dark" id="weatherdata">
@@ -49,67 +49,101 @@
                                 <a class="nav-link active" id="todayTab" data-toggle="tab" href="#todayTabContent" role="tab" aria-controls="todayTabContent" aria-selected="true">Today</a>
                             </li>
                             <li class="nav-item" role="presentation">
-                                <a class="nav-link" id="hourlyTab" data-toggle="tab" href="#hourlyTabContent" role="tab" aria-controls="hourlyTabContent" aria-selected="false">Hourly</a>
+                                <a class="nav-link" id="hourlyTab" data-toggle="tab" href="#hourlyTabContent" role="tab" aria-controls="hourlyTabContent" aria-selected="false">Next 24 Hours</a>
                             </li>
                             <li class="nav-item" role="presentation">
-                                <a class="nav-link" id="forecastTab" data-toggle="tab" href="#forecastTabContent" role="tab" aria-controls="forecastTabContent" aria-selected="false">7 Day Forecast</a>
+                                <a class="nav-link" id="forecastTab" data-toggle="tab" href="#forecastTabContent" role="tab" aria-controls="forecastTabContent" aria-selected="false">Next 7 Days</a>
                             </li>
                         </ul>
                         <div class="tab-content" id="weatherTabContent">
                             <div class="tab-pane fade show active mt-4" id="todayTabContent" role="tabpanel" aria-labelledby="todayTab">
                                 <div class="col border border-danger rounded-circle mx-auto py-5 aspectRatioLg">
-                                    <div class="row justify-content-center">Hi<span id="dailyHi"></span>&deg;<span class="divider"> | </span>Lo <span
+                                    <div class="row justify-content-center"><span id="dailyHi"></span>&deg;<span class="mx-2 divider"> | </span><span
                                             id="dailyLo"></span>&deg;
                                     </div>
                                     <div class="row justify-content-center currentTemp"><span id="currentTemperature"></span><span
                                             class="mt-2 normalSize">&deg;F</span>
                                     </div>
-                                    <div class="row justify-content-center">Feels Like <span id="feelsLike"></span>&deg;
+                                    <div class="row justify-content-center"><span class="ml-1" id="feelsLike"></span>&deg;
                                     </div>
                                 </div>
-                                <div class="row justify-content-center mt-4 d-none windSize" id="tomorrowC">Tomorrow will be<span
-                                        class="mx-1 tomorrowCooler">cooler</span>than today at this time.
-                                </div>
-                                <div class="row justify-content-center d-none windSize" id="tomorrowS">Tomorrow will be<span
-                                        class="mx-1 tomorrowSame"> about the same </span>as today at this time.
-                                </div>
-                                <div class="row justify-content-center d-none windSize" id="tomorrowW">Tomorrow will be<span
-                                        class="mx-1 tomorrowWarmer">warmer</span>than today at this time.
-                                </div>
-                                <div class="row justify-content-center d-none windSize" id="yesterdayC">Yesterday was <span
-                                        class="mx-1 tomorrowCooler"> cooler </span>than today at this time.
-                                </div>
-                                <div class="row justify-content-center d-none windSize" id="yesterdayS">Yesterday was<span
-                                        class="mx-1 tomorrowSame"> about the same </span>as today at this time.
-                                </div>
-                                <div class="row justify-content-center d-none windSize" id="yesterdayW">Yesterday was<span
-                                        class="mx-1 tomorrowWarmer">warmer</span>than today at this time.
+                                <div class="mt-4">
+                                    <div class="row justify-content-center d-none windSize" id="tomorrowC">Tomorrow will be<span
+                                            class="mx-1 tomorrowCooler">cooler</span>than today at this time.
+                                    </div>
+                                    <div class="row justify-content-center d-none windSize" id="tomorrowS">Tomorrow will be<span
+                                            class="mx-1 tomorrowSame"> about the same </span>as today at this time.
+                                    </div>
+                                    <div class="row justify-content-center d-none windSize" id="tomorrowW">Tomorrow will be<span
+                                            class="mx-1 tomorrowWarmer">warmer</span>than today at this time.
+                                    </div>
+                                    <div class="row justify-content-center d-none windSize" id="yesterdayC">Yesterday was <span
+                                            class="mx-1 tomorrowCooler"> cooler </span>than today at this time.
+                                    </div>
+                                    <div class="row justify-content-center d-none windSize" id="yesterdayS">Yesterday was<span
+                                            class="mx-1 tomorrowSame"> about the same </span>as today at this time.
+                                    </div>
+                                    <div class="row justify-content-center d-none windSize" id="yesterdayW">Yesterday was<span
+                                            class="mx-1 tomorrowWarmer">warmer</span>than today at this time.
+                                    </div>
                                 </div>
                             </div>
 
-                            <div class="tab-pane fade" id="hourlyTabContent" role="tabpanel" aria-labelledby="hourlyTab">Hourly Content Here</div>
-                            <div class="tab-pane fade" id="forecastTabContent" role="tabpanel" aria-labelledby="forecastTab">Forecast Data here</div>
+                            <div class="tab-pane fade" id="hourlyTabContent" role="tabpanel" aria-labelledby="hourlyTab">
+                                <div class="" id="hourlyForecast">
+                                    <div class="row">
+                                        <div class="col">Time</div>
+                                        <div class="col">Conditions</div>
+                                        <div class="col">Temp</div>
+                                        <div class="col">Feels Like</div>
+                                        <div class="col">Humidity</div>
+                                        <div class="col">Dew Point</div>
+                                        <div class="col">Wind</div>
+                                        <div class="col">Pressure</div>
+                                    </div>
+                                    <div class="overflow-auto">
+                                        <div id="hourlyForecastData">
+                                            <!--First Half Forecast Content -->
+                                        </div>
+                                        <div class="" id="hiddenHourly">
+                                            <!--Second Half Forecast Content -->
+                                        </div>
+                                    </div>
+                                    <div class="row justify-content-center"><button type="button" class="btn btn-danger" id="arrowBtn">Arrow Icon</button></div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="forecastTabContent" role="tabpanel" aria-labelledby="forecastTab">
+                                <div class="forecastDataHome">
+
+                                </div>
+                            </div>
                         </div>
 
 
                     </div>
-                    <div class="col-4 border border-dark forecastDarkBG ">
-                        <div class="row" id="currentIcon">
+                    <div class="col-4 border border-dark forecastDarkBG" id="conditionsCol">
+                        <div class="row justify-content-center mt-2" id="currentIcon">
                             <!-- CURRENT WEATHER ICON -->
                         </div>
-                        <div class="row justify-content-center windSize">
+                        <div class="row justify-content-center mt-2 windSize">
                             <span id="currentDescription"></span>
                         </div>
-                        <div class="col">
+                        <div class="col mt-5">
                             <span id="windArrow"></span>
                         </div>
-                        <div class="row justify-content-center windSize">Wind blowing<span id="windDirection"></span> at
-                            <span id="windSpeed"></span>mph.
+                        <div class="row justify-content-center mt-2 windSize">Wind blowing&nbsp;<span id="windDirection"></span>&nbsp;at&nbsp;
+                            <span id="windSpeed"></span>&nbsp;mph.
+                        </div>
+                        <div class="row d-flex flex-column justify-content-center mt-2">
+                            <div class="col">Sunrise: </div>
+                            <div class="col">Sunset: </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col">
+
+            <!-- WEATHER MINI MAP -->
+            <div class="col" id="miniMap">
                 <div class="row">
                     <div class="col-10 border border-dark initmapSize" id="weatherMap">
 
@@ -122,9 +156,9 @@
                 </div>
             </div>
         </div>
-        <div class="row flex-nowrap" id="forecastdata">
-
-        </div> <!-- ROW CONTAINS 7-DAY FORECAST DATA -->
+        <div class="row mx-auto flex-nowrap" id="forecastdata">
+            <!-- ROW CONTAINS 7-DAY FORECAST DATA -->
+        </div>
     </div>
 </main>
 
@@ -153,7 +187,7 @@
 
     <script src="js/keys.js"></script>
     <script src="js/mapbox-geocoder-utils.js"></script>
-    <script src="js/wm.js"></script>
+    <script src="js/weatherMap.js"></script>
 </div>
 </body>
 </html>
