@@ -14,20 +14,22 @@
 
     <script src="https://kit.fontawesome.com/97dc1343e3.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="css/weather_map.css">
+    <link rel="stylesheet" href="css/jquery-ui.css">
     <title>Weathermap Project</title>
 </head>
 <body>
 <nav class="navbar navbar-light bg-dark mb-1">
     <div class="col navbar-brand pl-0 text-light">Broken Weather Map</div>
-    <div class="col text-light"><!-- DT-->
-        <span id="currentDay"></span><span id="currentTime"></span>
+    <div class="col text-light">
+        <span id="currentDay"></span>
     </div>
     <div class="col ml-auto pr-0 text-right text-light" id="selectedlocation"></div>
 </nav>
-<div class="row ml-auto mr-2 coordinates" id="coordinates"></div>
-<!-- COORDINATES BOX *** BELOW CITY NAME, OUTSIDE OF NAVBAR-->
 
-<header>
+<!-- COORDINATES BOX *** BELOW CITY NAME, OUTSIDE OF NAVBAR-->
+<div class="row ml-auto mr-2 coordinates" id="coordinates"></div>
+
+<header class="d-none d-lg-block">
     <div class="col " id="mainContent">
         <p>Filler Content. Gif. Mpeg. Something. Hides after search.&deg;</p>
     </div>
@@ -38,84 +40,97 @@
     </div>
 </header>
 
-<main>
+<main class="d-none d-lg-block">
+
     <div class="container-fluid">
         <div class="row mx-auto my-5"> <!-- ROW CONTAINS CURRENT WEATHER DATA AND WEATHER MAP -->
             <div class="col">
                 <div class="row h-100">
-                    <div class="col-8 border border-dark" id="weatherdata">
+                    <div class="col-8 border border-dark" id="weatherData">
                         <ul class="nav nav-tabs" id="weatherTab" role="tablist">
                             <li class="nav-item" role="presentation">
-                                <a class="nav-link active" id="todayTab" data-toggle="tab" href="#todayTabContent" role="tab" aria-controls="todayTabContent" aria-selected="true">Today</a>
+                                <a class="nav-link active" id="todayTab" data-toggle="tab" href="#todayTabContent"
+                                   role="tab" aria-controls="todayTabContent" aria-selected="true">Today</a>
                             </li>
                             <li class="nav-item" role="presentation">
-                                <a class="nav-link" id="hourlyTab" data-toggle="tab" href="#hourlyTabContent" role="tab" aria-controls="hourlyTabContent" aria-selected="false">Next 24 Hours</a>
+                                <a class="nav-link" id="hourlyTab" data-toggle="tab" href="#hourlyTabContent" role="tab"
+                                   aria-controls="hourlyTabContent" aria-selected="false">Next 48 Hours</a>
                             </li>
                             <li class="nav-item" role="presentation">
-                                <a class="nav-link" id="forecastTab" data-toggle="tab" href="#forecastTabContent" role="tab" aria-controls="forecastTabContent" aria-selected="false">Next 7 Days</a>
+                                <a class="nav-link" id="forecastTab" data-toggle="tab" href="#forecastTabContent"
+                                   role="tab" aria-controls="forecastTabContent" aria-selected="false">Next 7 Days</a>
                             </li>
                         </ul>
                         <div class="tab-content" id="weatherTabContent">
-                            <div class="tab-pane fade show active mt-4" id="todayTabContent" role="tabpanel" aria-labelledby="todayTab">
+                            <div class="tab-pane fade show active mt-4" id="todayTabContent" role="tabpanel"
+                                 aria-labelledby="todayTab">
                                 <div class="col border border-danger rounded-circle mx-auto py-5 aspectRatioLg">
-                                    <div class="row justify-content-center"><span id="dailyHi"></span>&deg;<span class="mx-2 divider"> | </span><span
+                                    <div class="row justify-content-center"><span id="dailyHi"></span>&deg;<span
+                                            class="mx-2 divider"> | </span><span
                                             id="dailyLo"></span>&deg;
                                     </div>
-                                    <div class="row justify-content-center currentTemp"><span id="currentTemperature"></span><span
+                                    <div class="row justify-content-center currentTemp"><span
+                                            id="currentTemperature"></span><span
                                             class="mt-2 normalSize">&deg;F</span>
                                     </div>
                                     <div class="row justify-content-center"><span class="ml-1" id="feelsLike"></span>&deg;
                                     </div>
                                 </div>
                                 <div class="mt-4">
-                                    <div class="row justify-content-center d-none windSize" id="tomorrowC">Tomorrow will be<span
-                                            class="mx-1 tomorrowCooler">cooler</span>than today at this time.
+                                    <div class="row justify-content-center windSize">Tomorrow will be<span
+                                            class="mx-1" id="tomorrowCompare"></span>today at this time.
                                     </div>
-                                    <div class="row justify-content-center d-none windSize" id="tomorrowS">Tomorrow will be<span
-                                            class="mx-1 tomorrowSame"> about the same </span>as today at this time.
-                                    </div>
-                                    <div class="row justify-content-center d-none windSize" id="tomorrowW">Tomorrow will be<span
-                                            class="mx-1 tomorrowWarmer">warmer</span>than today at this time.
-                                    </div>
-                                    <div class="row justify-content-center d-none windSize" id="yesterdayC">Yesterday was <span
-                                            class="mx-1 tomorrowCooler"> cooler </span>than today at this time.
-                                    </div>
-                                    <div class="row justify-content-center d-none windSize" id="yesterdayS">Yesterday was<span
-                                            class="mx-1 tomorrowSame"> about the same </span>as today at this time.
-                                    </div>
-                                    <div class="row justify-content-center d-none windSize" id="yesterdayW">Yesterday was<span
-                                            class="mx-1 tomorrowWarmer">warmer</span>than today at this time.
+                                    <div class="row justify-content-center windSize">Yesterday was <span
+                                            class="mx-1" id="yesterdayCompare"></span>today at this time.
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="tab-pane fade" id="hourlyTabContent" role="tabpanel" aria-labelledby="hourlyTab">
-                                <div class="" id="hourlyForecast">
-                                    <div class="row">
-                                        <div class="col">Time</div>
-                                        <div class="col">Conditions</div>
-                                        <div class="col">Temp</div>
-                                        <div class="col">Feels Like</div>
-                                        <div class="col">Humidity</div>
-                                        <div class="col">Dew Point</div>
-                                        <div class="col">Wind</div>
-                                        <div class="col">Pressure</div>
+                            <div class="tab-pane fade" id="hourlyTabContent" role="tabpanel"
+                                 aria-labelledby="hourlyTab">
+                                <div class="container-fluid d-flex px-0" id="hourly-data-container">
+                                    <div class="justify-content-center px-0 my-auto">
+                                        <button type="button" class="btn btn-danger disabled" id="arrowBtnLDummy"><i
+                                                class="fas fa-chevron-left fa-3x"></i></button>
                                     </div>
-                                    <div class="overflow-auto">
-                                        <div id="hourlyForecastData">
-                                            <!--First Half Forecast Content -->
+                                    <div class="justify-content-center px-0 my-auto">
+                                        <button type="button" class="btn btn-danger d-none" id="arrowBtnL"><i
+                                                class="fas fa-chevron-left fa-3x"></i></button>
+                                    </div>
+                                    <div class="col px-1">
+                                        <div class="row" id="hourlyForecast">
+                                            <div class="col">Time</div>
+                                            <div class="col">Conditions</div>
+                                            <div class="col">Temp</div>
+                                            <div class="col">Feels Like</div>
+                                            <div class="col">Humidity</div>
+                                            <div class="col">Dew Point</div>
+                                            <div class="col">Wind</div>
+                                            <div class="col">Pressure</div>
                                         </div>
-                                        <div class="" id="hiddenHourly">
-                                            <!--Second Half Forecast Content -->
+                                        <div class="col">
+                                            <div class="col d-flex" id="hourlyForecastData">
+                                                <!--Hourly Forecast Content -->
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="row justify-content-center"><button type="button" class="btn btn-danger" id="arrowBtn">Arrow Icon</button></div>
+                                    <div class="justify-content-center px-0 my-auto">
+                                        <button type="button" class="btn btn-danger" id="arrowBtnR"><i
+                                                class="fas fa-chevron-right fa-3x"></i></button>
+                                    </div>
+                                    <div class="justify-content-center px-0 my-auto">
+                                        <button type="button" class="btn btn-danger disabled d-none"
+                                                id="arrowBtnRDummy"><i class="fas fa-chevron-right fa-3x"></i></button>
+                                    </div>
                                 </div>
+                                <div class="row" id="hourlyPageNum">Page 1/4</div>
                             </div>
-                            <div class="tab-pane fade" id="forecastTabContent" role="tabpanel" aria-labelledby="forecastTab">
-                                <div class="forecastDataHome">
-
+                            <div class="tab-pane fade" id="forecastTabContent" role="tabpanel"
+                                 aria-labelledby="forecastTab">
+                                <div class="row mx-auto p-3 flex-nowrap" id="forecastData">
+                                    <!-- ROW CONTAINS 7-DAY FORECAST DATA -->
                                 </div>
+
                             </div>
                         </div>
 
@@ -129,14 +144,17 @@
                             <span id="currentDescription"></span>
                         </div>
                         <div class="col mt-5">
-                            <span id="windArrow"></span>
+                            <span id=""><div class="col text-center"><i
+                                    class="fas fa-location-arrow rounded-circle bg-light aspectRatioSm arrow"
+                                    id="windArrow"></i></div></span>
                         </div>
-                        <div class="row justify-content-center mt-2 windSize">Wind blowing&nbsp;<span id="windDirection"></span>&nbsp;at&nbsp;
+                        <div class="row justify-content-center mt-2 windSize">Wind blowing&nbsp;<span
+                                id="windDirection"></span>&nbsp;at&nbsp;
                             <span id="windSpeed"></span>&nbsp;mph.
                         </div>
                         <div class="row d-flex flex-column justify-content-center mt-2">
-                            <div class="col">Sunrise: </div>
-                            <div class="col">Sunset: </div>
+                            <div class="col">Sunrise: <span class="" id="currentSunrise"></span></div>
+                            <div class="col">Sunset: <span class="" id="currentSunset"></span></div>
                         </div>
                     </div>
                 </div>
@@ -156,19 +174,21 @@
                 </div>
             </div>
         </div>
-        <div class="row mx-auto flex-nowrap" id="forecastdata">
-            <!-- ROW CONTAINS 7-DAY FORECAST DATA -->
-        </div>
+
     </div>
 </main>
 
-<footer></footer>
+<footer>
+    <div class="col border border-dark"> Footer</div>
+</footer>
 
 <!--Scripts Below -->
 <div>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"
             integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
             crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+            integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
             integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
             crossorigin="anonymous"></script>
@@ -185,10 +205,10 @@
           href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.5.1/mapbox-gl-geocoder.css"
           type="text/css"/>
 
+
     <script src="js/keys.js"></script>
-    <script src="js/mapbox-geocoder-utils.js"></script>
-    <script src="js/weatherMap.js"></script>
+    <script type="module" src="js/weather.js"></script>
+
 </div>
 </body>
 </html>
-
