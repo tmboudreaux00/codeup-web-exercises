@@ -69,12 +69,6 @@
                 $('#selectedlocation').html("");
         });
     }
-    /**
-     $('#mapDiv').append($('#mapBox'));
-     $('#mapBox').removeClass('initMapSize mx-auto d-none').addClass('mapSize');
-     $('#mainContent').addClass('d-none');
-     map.resize();
-     */
 
         //get api data for weather report
     var ajaxRequest = function (lat, long) {
